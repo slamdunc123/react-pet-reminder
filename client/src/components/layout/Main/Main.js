@@ -6,8 +6,12 @@ import Items from '../../pages/Items/Items';
 const Main = () => {
 	return (
 		<Switch>
-			<Route exact path='/' component={Home} />
-			<Route path='/items' component={Items} />
+			<Route exact path='/'>
+				<Home />
+			</Route>
+			<Route path='/items'>
+				<Items />
+			</Route>
 		</Switch>
 	);
 };
