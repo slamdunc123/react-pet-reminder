@@ -1,6 +1,9 @@
 const express = require('express');
+const conn = require('./config/db');
 
 const app = express();
+
+conn();
 
 // test route - http://localhost:5000
 app.get('/', (req, res) => res.send('test route successful'));

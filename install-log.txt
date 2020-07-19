@@ -7,3 +7,5 @@ npm init -y
 - express
 - nodemon -D
 - concurrently -D
+- mongoose
+- config
