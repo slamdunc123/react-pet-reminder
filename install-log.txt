@@ -1,3 +1,9 @@
 client
 - node-sass
 - react-router-dom
+
+server
+npm init -y
+- express
+- nodemon -D
+- concurrently -D
