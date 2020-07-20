@@ -10,7 +10,7 @@ conn();
 app.use(express.json({ extended: false }));
 
 // test route - http://localhost:5000
-// app.get('/', (req, res) => res.send('test route successful'));
+app.get('/', (req, res) => res.send('test route successful'));
 
 // define routes
 app.use('/api/items', require('./routes/api/items'));
