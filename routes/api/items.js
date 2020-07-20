@@ -51,4 +51,29 @@ router.post('/', async (req, res) => {
 	}
 });
 
+// @route DELETE api/items
+// @desc Delete an item
+// @access Public
+
+router.delete('/:id', async (req, res) => {
+	try {
+		const item = await Item.findById(req.params.id);
+
+		if (!item) {
+			return res.status(404).json({
+				msg: 'Item not found',
+			});
+		}
+
+		await item.remove();
+
+		res.json({
+			msg: 'Item deleted',
+		});
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
+
 module.exports = router;
