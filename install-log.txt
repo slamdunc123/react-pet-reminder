@@ -1,6 +1,10 @@
 client
 - node-sass
 - react-router-dom
+- axios
+
+add this line to client >> package.json
+"proxy": "http://localhost:5000"
 
 server
 npm init -y
@@ -9,3 +13,7 @@ npm init -y
 - concurrently -D
 - mongoose
 - config
+- dotenv ?
+- cors ?
+
+
