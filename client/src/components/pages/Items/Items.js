@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../../partials/Spinner/Spinner';
 import ItemsTable from './ItemsTable';
+import ItemsForm from './ItemsForm';
 
 const Items = () => {
 	const [items, setItems] = useState([]);
@@ -16,6 +17,7 @@ const Items = () => {
 	}, []);
 	return (
 		<div className='items-container'>
+			<ItemsForm />
 			<h3>Items</h3>
 			{isLoading ? <Spinner /> : <ItemsTable items={items} />}
 		</div>
