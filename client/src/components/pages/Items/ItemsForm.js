@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 const ItemsForm = () => {
-	const history = useHistory();
 	const [formData, setFormData] = useState({
 		name: '',
 		desc: '',
@@ -18,7 +16,7 @@ const ItemsForm = () => {
 		});
 	};
 	const handleOnSubmit = (e) => {
-		// e.preventDefault();
+		e.preventDefault();
 		console.log(formData);
 		const config = {
 			headers: {
@@ -32,8 +30,6 @@ const ItemsForm = () => {
 			name: '',
 			desc: '',
 		});
-
-		// history.push('/');
 	};
 
 	return (

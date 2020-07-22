@@ -14,7 +14,7 @@ const Items = () => {
 			setIsLoading(false);
 		};
 		fetchData();
-	}, []);
+	}, [items]);
 	return (
 		<div className='items-container'>
 			<ItemsForm />
