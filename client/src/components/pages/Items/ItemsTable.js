@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ItemsTable = ({ items }) => {
+const ItemsTable = ({ items, handleDelete }) => {
 	return (
 		<table>
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Description</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -16,6 +18,14 @@ const ItemsTable = ({ items }) => {
 						<tr key={item._id}>
 							<td>{item.name}</td>
 							<td>{item.desc}</td>
+							<td>
+								<button>Edit</button>
+							</td>
+							<td>
+								<button onClick={() => handleDelete(item._id)}>
+									Delete
+								</button>
+							</td>
 						</tr>
 					);
 				})}

@@ -5,10 +5,16 @@ import ItemsTable from './ItemsTable';
 import ItemsForm from './ItemsForm';
 
 import { connect } from 'react-redux';
-import { getItems } from '../../../redux/actions/itemsActions';
+import { getItems, deleteItem } from '../../../redux/actions/itemsActions';
 
-const Items = ({ getItems, items, loading }) => {
+const Items = ({ getItems, deleteItem, items, loading }) => {
 	const [isSubmitting, setIsSubmitting] = useState(false);
+
+	const handleDelete = (id) => {
+		console.log(id, 'delete clicked');
+		deleteItem(id);
+	};
+
 	useEffect(() => {
 		getItems();
 		setIsSubmitting(false);
@@ -21,7 +27,7 @@ const Items = ({ getItems, items, loading }) => {
 			{loading ? (
 				<Spinner />
 			) : items.length > 0 ? (
-				<ItemsTable items={items} />
+				<ItemsTable items={items} handleDelete={handleDelete} />
 			) : (
 				'No items to display - please add one'
 			)}
@@ -36,4 +42,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { getItems })(Items);
+export default connect(mapStateToProps, { getItems, deleteItem })(Items);

@@ -1,4 +1,5 @@
 import { GET_ITEMS } from '../actions/types';
+import { DELETE_ITEM } from '../actions/types';
 
 const initialState = {
 	items: [],
@@ -14,6 +15,13 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				items: payload,
+				loading: false,
+			};
+		case DELETE_ITEM:
+			console.log('DELETE_ITEM called', payload);
+			return {
+				...state,
+				items: state.items.filter((item) => item._id !== payload),
 				loading: false,
 			};
 
