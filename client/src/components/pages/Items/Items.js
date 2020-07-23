@@ -4,24 +4,36 @@ import Spinner from '../../partials/Spinner/Spinner';
 import ItemsTable from './ItemsTable';
 import ItemsForm from './ItemsForm';
 
-const Items = () => {
-	const [items, setItems] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
+import { connect } from 'react-redux';
+import { getItems } from '../../../redux/actions/itemsActions';
+
+const Items = ({ getItems, items, loading }) => {
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	useEffect(() => {
-		const fetchData = async () => {
-			const result = await axios.get('api/items');
-			setItems(result.data);
-			setIsLoading(false);
-		};
-		fetchData();
-	}, [items]);
+		getItems();
+		setIsSubmitting(false);
+	}, [isSubmitting]);
 	return (
 		<div className='items-container'>
-			<ItemsForm />
+			{console.log(items)}
+			<ItemsForm setIsSubmitting={setIsSubmitting} />
 			<h3>Items</h3>
-			{isLoading ? <Spinner /> : <ItemsTable items={items} />}
+			{loading ? (
+				<Spinner />
+			) : items.length > 0 ? (
+				<ItemsTable items={items} />
+			) : (
+				'No items to display - please add one'
+			)}
 		</div>
 	);
 };
 
-export default Items;
+const mapStateToProps = (state) => {
+	return {
+		items: state.itemsReducer.items, // gets from rootReducer which has itemsReducer imported
+		loading: state.itemsReducer.loading, // gets from rootReducer which has itemsReducer imported
+	};
+};
+
+export default connect(mapStateToProps, { getItems })(Items);

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ItemsForm = () => {
+const ItemsForm = ({ setIsSubmitting }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		desc: '',
@@ -17,6 +17,7 @@ const ItemsForm = () => {
 	};
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
+		setIsSubmitting(true);
 		console.log(formData);
 		const config = {
 			headers: {

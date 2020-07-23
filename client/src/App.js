@@ -5,12 +5,18 @@ import Main from './components/layout/Main/Main';
 // import logo from './logo.svg';
 import './App.css';
 
+// redux
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 function App() {
 	return (
-		<Router>
-			<Header />
-			<Main />
-		</Router>
+		<Provider store={store}>
+			<Router>
+				<Header />
+				<Main />
+			</Router>
+		</Provider>
 	);
 }
 

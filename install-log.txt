@@ -2,6 +2,10 @@ client
 - node-sass
 - react-router-dom
 - axios
+- redux
+- react-redux
+- redux-devtools-extension -D
+- redux-thunk
 
 add this line to client >> package.json
 "proxy": "http://localhost:5000"
