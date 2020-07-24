@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-const ItemsForm = ({ setIsSubmitting }) => {
+const ItemsForm = ({ handleCreate }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		desc: '',
@@ -17,15 +16,8 @@ const ItemsForm = ({ setIsSubmitting }) => {
 	};
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-		setIsSubmitting(true);
-		console.log(formData);
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		};
 
-		axios.post('/api/items', formData, config);
+		handleCreate(formData);
 
 		setFormData({
 			name: '',

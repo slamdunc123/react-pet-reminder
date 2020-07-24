@@ -5,24 +5,27 @@ import ItemsTable from './ItemsTable';
 import ItemsForm from './ItemsForm';
 
 import { connect } from 'react-redux';
-import { getItems, deleteItem } from '../../../redux/actions/itemsActions';
+import {
+	getItems,
+	createItem,
+	deleteItem,
+} from '../../../redux/actions/itemsActions';
 
-const Items = ({ getItems, deleteItem, items, loading }) => {
-	const [isSubmitting, setIsSubmitting] = useState(false);
+const Items = ({ getItems, createItem, deleteItem, items, loading }) => {
+	const handleCreate = (formData) => {
+		createItem(formData);
+	};
 
 	const handleDelete = (id) => {
-		console.log(id, 'delete clicked');
 		deleteItem(id);
 	};
 
 	useEffect(() => {
 		getItems();
-		setIsSubmitting(false);
-	}, [isSubmitting]);
+	}, []);
 	return (
 		<div className='items-container'>
-			{console.log(items)}
-			<ItemsForm setIsSubmitting={setIsSubmitting} />
+			<ItemsForm handleCreate={handleCreate} />
 			<h3>Items</h3>
 			{loading ? (
 				<Spinner />
@@ -42,4 +45,6 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, { getItems, deleteItem })(Items);
+export default connect(mapStateToProps, { getItems, createItem, deleteItem })(
+	Items
+);

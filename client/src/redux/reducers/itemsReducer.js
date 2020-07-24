@@ -1,4 +1,5 @@
 import { GET_ITEMS } from '../actions/types';
+import { CREATE_ITEM } from '../actions/types';
 import { DELETE_ITEM } from '../actions/types';
 
 const initialState = {
@@ -15,6 +16,13 @@ export default function (state = initialState, action) {
 			return {
 				...state,
 				items: payload,
+				loading: false,
+			};
+		case CREATE_ITEM:
+			console.log('CREATE_ITEM called', payload);
+			return {
+				...state,
+				items: [...state.items, payload],
 				loading: false,
 			};
 		case DELETE_ITEM:
