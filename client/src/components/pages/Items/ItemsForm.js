@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/esm/Button';
 
 const ItemsForm = ({ handleCreate }) => {
 	const [formData, setFormData] = useState({
@@ -43,7 +44,14 @@ const ItemsForm = ({ handleCreate }) => {
 					placeholder='Item Description'
 					onChange={handleOnChange}
 				/>
-				<input type='submit' value='submit' />
+				<Button
+					type='submit'
+					value='submit'
+					className='btn btn-primary'
+					// size='sm'
+				>
+					Submit
+				</Button>
 			</form>
 		</div>
 	);

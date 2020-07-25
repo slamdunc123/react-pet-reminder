@@ -6,6 +6,9 @@ client
 - react-redux
 - redux-devtools-extension -D
 - redux-thunk
+- rect-bootstrap
+- bootstrap
+- bootswatch
 
 add this line to client >> package.json
 "proxy": "http://localhost:5000"

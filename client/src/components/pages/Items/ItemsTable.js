@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
 const ItemsTable = ({ items, handleDelete }) => {
 	return (
@@ -19,12 +20,18 @@ const ItemsTable = ({ items, handleDelete }) => {
 							<td>{item.name}</td>
 							<td>{item.desc}</td>
 							<td>
-								<button>Edit</button>
+								<Button className='btn btn-warning' size='sm'>
+									Edit
+								</Button>
 							</td>
 							<td>
-								<button onClick={() => handleDelete(item._id)}>
+								<Button
+									onClick={() => handleDelete(item._id)}
+									className='btn btn-danger'
+									size='sm'
+								>
 									Delete
-								</button>
+								</Button>
 							</td>
 						</tr>
 					);

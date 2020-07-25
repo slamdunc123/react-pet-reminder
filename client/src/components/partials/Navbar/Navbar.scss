@@ -4,7 +4,7 @@
 	display: flex;
 	height: 50px;
 	width: 100%;
-	background-color: $text-color;
+	background-color: $primary-text;
 	justify-content: space-between;
 	align-items: center;
 	margin: 0 0 1rem 0;
@@ -15,7 +15,7 @@
 	font-size: 1.5rem;
 	align-self: flex-end;
 	padding: 0.5rem;
-	color: $base-color;
+	color: $theme-color;
 	transition: all 0.3s ease-in-out;
 
 	&.opened {
@@ -35,10 +35,10 @@
 	a {
 		text-decoration: none;
 		padding: 0.5rem;
-		color: $base-color;
+		color: $theme-color;
 
 		&:hover {
-			color: darken($base-color, 25%);
+			color: darken($theme-color, 25%);
 		}
 	}
 
@@ -50,7 +50,7 @@
 .nav-mobile-menu {
 	display: flex;
 	// margin-right: 1rem;
-	background-color: rgba(darken($base-color, 25%), 1);
+	background-color: rgba(darken($theme-color, 25%), 1);
 	position: absolute;
 	top: 0;
 	flex-direction: column;
@@ -70,11 +70,11 @@
 	}
 
 	a {
-		color: $text-color;
+		color: $primary-text;
 		text-decoration: none;
 
 		&:hover {
-			color: darken($text-color, 25%);
+			color: darken($primary-text, 25%);
 		}
 	}
 
