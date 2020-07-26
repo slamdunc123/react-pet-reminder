@@ -2,6 +2,7 @@ import axios from 'axios';
 import { GET_ITEMS } from './types';
 import { CREATE_ITEM } from './types';
 import { DELETE_ITEM } from './types';
+import { EDIT_ITEM } from './types';
 
 // get items
 export const getItems = () => async (dispatch) => {
@@ -52,4 +53,12 @@ export const deleteItem = (id) => async (dispatch) => {
 	} catch (err) {
 		console.error(err.error);
 	}
+};
+
+export const editItem = (id, name, desc) => async (dispatch) => {
+	console.log('editItem fired', id, name, desc);
+	dispatch({
+		type: EDIT_ITEM,
+		payload: id,
+	});
 };

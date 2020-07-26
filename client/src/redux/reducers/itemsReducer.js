@@ -1,6 +1,7 @@
 import { GET_ITEMS } from '../actions/types';
 import { CREATE_ITEM } from '../actions/types';
 import { DELETE_ITEM } from '../actions/types';
+import { EDIT_ITEM } from '../actions/types';
 
 const initialState = {
 	items: [],
@@ -32,6 +33,9 @@ export default function (state = initialState, action) {
 				items: state.items.filter((item) => item._id !== payload),
 				loading: false,
 			};
+
+		case EDIT_ITEM:
+			console.log('EDIT_ITEM called', payload);
 
 		default:
 			return state;

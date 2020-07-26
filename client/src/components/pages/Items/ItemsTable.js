@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 
-const ItemsTable = ({ items, handleDelete }) => {
+const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 	return (
 		<div className='container'>
 			<table>
@@ -22,6 +22,13 @@ const ItemsTable = ({ items, handleDelete }) => {
 								<td>{item.desc}</td>
 								<td>
 									<Button
+										onClick={() =>
+											handleEdit(
+												item._id,
+												item.name,
+												item.desc
+											)
+										}
 										className='btn btn-warning'
 										size='sm'
 									>
@@ -48,6 +55,8 @@ const ItemsTable = ({ items, handleDelete }) => {
 
 ItemsTable.propTypes = {
 	items: PropTypes.arrayOf(PropTypes.object).isRequired,
+	handleDelete: PropTypes.func.isRequired,
+	handleEdit: PropTypes.func.isRequired,
 };
 
 export default ItemsTable;

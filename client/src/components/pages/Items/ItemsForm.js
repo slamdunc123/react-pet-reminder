@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 
-const ItemsForm = ({ handleCreate }) => {
+const ItemsForm = ({ isEditing, editedItem, handleCreate }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		desc: '',
 	});
-
+	console.log(isEditing, editedItem);
 	const { name, desc } = formData;
 
 	const handleOnChange = (e) => {
@@ -26,6 +26,13 @@ const ItemsForm = ({ handleCreate }) => {
 			desc: '',
 		});
 	};
+
+	useEffect(() => {
+		setFormData({
+			name: editedItem.name,
+			desc: editedItem.desc,
+		});
+	}, [editedItem]);
 
 	return (
 		<div className='container'>
@@ -55,7 +62,7 @@ const ItemsForm = ({ handleCreate }) => {
 					/>
 				</Form.Group>
 				<Button variant='primary' type='submit'>
-					Submit
+					{isEditing ? 'Update' : 'Create'}
 				</Button>
 			</Form>
 		</div>
