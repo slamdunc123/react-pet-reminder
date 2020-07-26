@@ -2,11 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Brand from '../Brand/Brand';
 
 const NavMenu = () => {
 	return (
 		<Navbar collapseOnSelect bg='primary' variant='dark' expand='lg'>
-			<Navbar.Brand href='#home'>React-Bootstrap</Navbar.Brand>
+			<Navbar.Brand href='#home'>
+				<Brand />
+			</Navbar.Brand>
 			<Navbar.Toggle aria-controls='basic-navbar-nav' />
 			<Navbar.Collapse id='basic-navbar-nav'>
 				<Nav className='ml-auto'>

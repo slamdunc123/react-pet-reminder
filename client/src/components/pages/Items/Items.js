@@ -24,9 +24,9 @@ const Items = ({ getItems, createItem, deleteItem, items, loading }) => {
 		getItems();
 	}, []);
 	return (
-		<div className='items-container'>
-			<ItemsForm handleCreate={handleCreate} />
+		<div className='container'>
 			<h3>Items</h3>
+			<ItemsForm handleCreate={handleCreate} />
 			{loading ? (
 				<Spinner />
 			) : items.length > 0 ? (

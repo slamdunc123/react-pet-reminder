@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/esm/Button';
+import Form from 'react-bootstrap/Form';
 
 const ItemsForm = ({ handleCreate }) => {
 	const [formData, setFormData] = useState({
@@ -27,32 +28,36 @@ const ItemsForm = ({ handleCreate }) => {
 	};
 
 	return (
-		<div className='items-form-container'>
-			<h5>Items Form</h5>
-			<form onSubmit={handleOnSubmit}>
-				<input
-					type='text'
-					name='name'
-					value={name}
-					placeholder='Item Name'
-					onChange={handleOnChange}
-				/>
-				<input
-					type='text'
-					name='desc'
-					value={desc}
-					placeholder='Item Description'
-					onChange={handleOnChange}
-				/>
-				<Button
-					type='submit'
-					value='submit'
-					className='btn btn-primary'
-					// size='sm'
-				>
+		<div className='container'>
+			<Form onSubmit={handleOnSubmit}>
+				<Form.Group controlId='itemName'>
+					<Form.Label>Name</Form.Label>
+					<Form.Control
+						type='text'
+						placeholder='Name'
+						name='name'
+						value={name}
+						onChange={handleOnChange}
+					/>
+					<Form.Text className='text-muted'>
+						We'll never share your email with anyone else.
+					</Form.Text>
+				</Form.Group>
+
+				<Form.Group controlId='itemDesc'>
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						type='text'
+						placeholder='Description'
+						name='desc'
+						value={desc}
+						onChange={handleOnChange}
+					/>
+				</Form.Group>
+				<Button variant='primary' type='submit'>
 					Submit
 				</Button>
-			</form>
+			</Form>
 		</div>
 	);
 };
