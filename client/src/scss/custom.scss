@@ -1,9 +1,6 @@
 @import './variables.scss';
 
-// bootstrap customisations
+// bootstrap customisations - overwrites the theme values
 // $theme-colors: (
-// 'danger': $danger,
+// 	'primary': grey,
 // );
-
-// import bootstrap to set customisation changes
-@import '~bootstrap/scss/bootstrap';

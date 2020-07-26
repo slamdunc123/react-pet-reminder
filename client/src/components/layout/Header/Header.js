@@ -1,8 +1,12 @@
 import React from 'react';
-import Navbar from '../../partials/Navbar/Navbar';
+import NavMenu from '../../partials/NavMenu/NavMenu';
 
 const Header = () => {
-	return <Navbar />;
+	return (
+		<>
+			<NavMenu />
+		</>
+	);
 };
 
 export default Header;
