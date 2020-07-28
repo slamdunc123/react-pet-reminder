@@ -9,14 +9,14 @@ import {
 	getItems,
 	createItem,
 	deleteItem,
-	editItem,
+	updateItem,
 } from '../../../redux/actions/itemsActions';
 
 const Items = ({
 	getItems,
 	createItem,
 	deleteItem,
-	editItem,
+	updateItem,
 	items,
 	loading,
 }) => {
@@ -26,9 +26,16 @@ const Items = ({
 		name: '',
 		desc: '',
 	});
+	const [updatedItem, setUpdatedItem] = useState(false);
 
 	const handleCreate = (formData) => {
 		createItem(formData);
+	};
+
+	const handleUpdate = (id, formData) => {
+		updateItem(id, formData);
+		setIsEditing(false);
+		setUpdatedItem(true);
 	};
 
 	const handleDelete = (id) => {
@@ -37,7 +44,6 @@ const Items = ({
 
 	const handleEdit = (id, name, desc) => {
 		console.log(id, name, desc);
-		editItem(id, name, desc);
 		setIsEditing(true);
 		setEditedItem({
 			id: id,
@@ -48,7 +54,8 @@ const Items = ({
 
 	useEffect(() => {
 		getItems();
-	}, []);
+		setUpdatedItem(false);
+	}, [updatedItem]);
 	return (
 		<div className='container'>
 			<h3>Items</h3>
@@ -56,6 +63,7 @@ const Items = ({
 				isEditing={isEditing}
 				editedItem={editedItem}
 				handleCreate={handleCreate}
+				handleUpdate={handleUpdate}
 			/>
 			{loading ? (
 				<Spinner />
@@ -83,5 +91,5 @@ export default connect(mapStateToProps, {
 	getItems,
 	createItem,
 	deleteItem,
-	editItem,
+	updateItem,
 })(Items);

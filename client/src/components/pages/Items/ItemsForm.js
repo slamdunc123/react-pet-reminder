@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 
-const ItemsForm = ({ isEditing, editedItem, handleCreate }) => {
+const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		desc: '',
@@ -18,8 +18,9 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate }) => {
 	};
 	const handleOnSubmit = (e) => {
 		e.preventDefault();
-
-		handleCreate(formData);
+		isEditing
+			? handleUpdate(editedItem.id, formData)
+			: handleCreate(formData);
 
 		setFormData({
 			name: '',

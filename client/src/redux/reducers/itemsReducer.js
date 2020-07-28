@@ -1,7 +1,7 @@
 import { GET_ITEMS } from '../actions/types';
 import { CREATE_ITEM } from '../actions/types';
 import { DELETE_ITEM } from '../actions/types';
-import { EDIT_ITEM } from '../actions/types';
+import { UPDATE_ITEM } from '../actions/types';
 
 const initialState = {
 	items: [],
@@ -34,8 +34,20 @@ export default function (state = initialState, action) {
 				loading: false,
 			};
 
-		case EDIT_ITEM:
-			console.log('EDIT_ITEM called', payload);
+		case UPDATE_ITEM:
+			console.log('UPDATE_ITEM called', payload);
+			state.items.find((item) => {
+				if (item._id === payload.id) {
+					item.name = payload.name;
+					item.desc = payload.desc;
+					return {
+						...state,
+						items: [...state.items, payload],
+					};
+				} else return state;
+			});
+
+			break;
 
 		default:
 			return state;

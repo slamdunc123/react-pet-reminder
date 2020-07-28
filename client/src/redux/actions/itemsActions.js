@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GET_ITEMS } from './types';
 import { CREATE_ITEM } from './types';
 import { DELETE_ITEM } from './types';
-import { EDIT_ITEM } from './types';
+import { UPDATE_ITEM } from './types';
 
 // get items
 export const getItems = () => async (dispatch) => {
@@ -55,10 +55,21 @@ export const deleteItem = (id) => async (dispatch) => {
 	}
 };
 
-export const editItem = (id, name, desc) => async (dispatch) => {
-	console.log('editItem fired', id, name, desc);
-	dispatch({
-		type: EDIT_ITEM,
-		payload: id,
-	});
+export const updateItem = (id, formData) => async (dispatch) => {
+	console.log('udpateItem fired', id, formData);
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+	const body = formData;
+	try {
+		const res = await axios.put(`/api/items/${id}`, body, config); // pass edited item id, new formData, headers
+		dispatch({
+			type: UPDATE_ITEM,
+			payload: res.data,
+		});
+	} catch (err) {
+		console.error(err.error);
+	}
 };
