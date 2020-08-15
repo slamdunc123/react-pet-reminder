@@ -32,7 +32,7 @@ const NavMenu = () => {
 			</MDBNavbarBrand>
 			{!isWideEnough && <MDBNavbarToggler onClick={handleOnClick} />}
 			<MDBCollapse isOpen={collapse} navbar>
-				<MDBNavbarNav left>
+				<MDBNavbarNav right>
 					<MDBNavItem active onClick={handleOnClick}>
 						<MDBNavLink to='/'>Home</MDBNavLink>
 					</MDBNavItem>
