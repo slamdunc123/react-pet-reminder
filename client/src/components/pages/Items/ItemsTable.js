@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact';
+import {
+	MDBBtn,
+	MDBTable,
+	MDBTableHead,
+	MDBTableBody,
+	MDBIcon,
+} from 'mdbreact';
 
 const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 	return (
@@ -31,7 +37,7 @@ const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 									color='warning'
 									style={{ border: 'none' }}
 								>
-									Edit
+									<MDBIcon icon='edit' size='lg' />
 								</MDBBtn>
 
 								<MDBBtn
@@ -40,7 +46,7 @@ const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 									color='danger'
 									style={{ border: 'none' }}
 								>
-									Delete
+									<MDBIcon icon='times-circle' size='lg' />
 								</MDBBtn>
 							</td>
 						</tr>

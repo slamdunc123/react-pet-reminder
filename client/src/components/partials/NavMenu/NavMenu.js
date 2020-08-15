@@ -28,7 +28,7 @@ const NavMenu = () => {
 			// transparent
 		>
 			<MDBNavbarBrand href='/'>
-				<strong>Navbar</strong>
+				<Brand />
 			</MDBNavbarBrand>
 			{!isWideEnough && <MDBNavbarToggler onClick={handleOnClick} />}
 			<MDBCollapse isOpen={collapse} navbar>
