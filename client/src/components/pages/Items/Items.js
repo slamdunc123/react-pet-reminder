@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Spinner from '../../partials/Spinner/Spinner';
 import ItemsTable from './ItemsTable';
 import ItemsForm from './ItemsForm';
+import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
 import { connect } from 'react-redux';
 import {
@@ -12,6 +12,8 @@ import {
 	updateItem,
 } from '../../../redux/actions/itemsActions';
 
+import './items.scss';
+
 const Items = ({
 	getItems,
 	createItem,
@@ -20,6 +22,7 @@ const Items = ({
 	items,
 	loading,
 }) => {
+	const container = { height: 1300 };
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedItem, setEditedItem] = useState({
 		id: '',
@@ -57,26 +60,31 @@ const Items = ({
 		setUpdatedItem(false);
 	}, [updatedItem]);
 	return (
-		<div className='container'>
-			<h3>Items</h3>
-			<ItemsForm
-				isEditing={isEditing}
-				editedItem={editedItem}
-				handleCreate={handleCreate}
-				handleUpdate={handleUpdate}
-			/>
-			{loading ? (
-				<Spinner />
-			) : items.length > 0 ? (
-				<ItemsTable
-					items={items}
-					handleDelete={handleDelete}
-					handleEdit={handleEdit}
-				/>
-			) : (
-				'No items to display - please add one'
-			)}
-		</div>
+		<MDBContainer style={container} className='text-left mt-5 pt-5'>
+			<MDBRow>
+				<MDBCol md='6'>
+					<ItemsForm
+						isEditing={isEditing}
+						editedItem={editedItem}
+						handleCreate={handleCreate}
+						handleUpdate={handleUpdate}
+					/>
+				</MDBCol>
+				<MDBCol md='6'>
+					{loading ? (
+						<Spinner />
+					) : items.length > 0 ? (
+						<ItemsTable
+							items={items}
+							handleDelete={handleDelete}
+							handleEdit={handleEdit}
+						/>
+					) : (
+						'No items to display - please add one'
+					)}
+				</MDBCol>
+			</MDBRow>
+		</MDBContainer>
 	);
 };
 

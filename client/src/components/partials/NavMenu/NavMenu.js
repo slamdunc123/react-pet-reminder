@@ -1,27 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Brand from '../Brand/Brand';
+import {
+	MDBNavbar,
+	MDBNavbarBrand,
+	MDBNavbarNav,
+	MDBNavbarToggler,
+	MDBCollapse,
+	MDBNavItem,
+	MDBNavLink,
+} from 'mdbreact';
 
 const NavMenu = () => {
+	const [collapse, setCollapse] = useState(false);
+	const [isWideEnough, setIsWideEnough] = useState(false);
+
+	const handleOnClick = () => {
+		setCollapse(!collapse);
+	};
 	return (
-		<Navbar collapseOnSelect bg='primary' variant='dark' expand='lg'>
-			<Navbar.Brand href='#home'>
-				<Brand />
-			</Navbar.Brand>
-			<Navbar.Toggle aria-controls='basic-navbar-nav' />
-			<Navbar.Collapse id='basic-navbar-nav'>
-				<Nav className='ml-auto'>
-					<Nav.Link as={Link} to='/' href='/'>
-						Home
-					</Nav.Link>
-					<Nav.Link as={Link} to='/items' href='/items'>
-						Items
-					</Nav.Link>
-				</Nav>
-			</Navbar.Collapse>
-		</Navbar>
+		<MDBNavbar
+			color='bg-primary'
+			fixed='top'
+			dark
+			expand='md'
+			scrolling
+			// transparent
+		>
+			<MDBNavbarBrand href='/'>
+				<strong>Navbar</strong>
+			</MDBNavbarBrand>
+			{!isWideEnough && <MDBNavbarToggler onClick={handleOnClick} />}
+			<MDBCollapse isOpen={collapse} navbar>
+				<MDBNavbarNav left>
+					<MDBNavItem active onClick={handleOnClick}>
+						<MDBNavLink to='/'>Home</MDBNavLink>
+					</MDBNavItem>
+					<MDBNavItem onClick={handleOnClick}>
+						<MDBNavLink to='/items'>Items</MDBNavLink>
+					</MDBNavItem>
+				</MDBNavbarNav>
+			</MDBCollapse>
+		</MDBNavbar>
 	);
 };
 

@@ -1,55 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
+import { MDBBtn, MDBTable, MDBTableHead, MDBTableBody } from 'mdbreact';
 
 const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 	return (
-		<div className='container'>
-			<table>
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-						<th>Edit</th>
-						<th>Delete</th>
-					</tr>
-				</thead>
-				<tbody>
-					{items.map((item) => {
-						return (
-							<tr key={item._id}>
-								<td>{item.name}</td>
-								<td>{item.desc}</td>
-								<td>
-									<Button
-										onClick={() =>
-											handleEdit(
-												item._id,
-												item.name,
-												item.desc
-											)
-										}
-										className='btn btn-warning'
-										size='sm'
-									>
-										Edit
-									</Button>
-								</td>
-								<td>
-									<Button
-										onClick={() => handleDelete(item._id)}
-										className='btn btn-danger'
-										size='sm'
-									>
-										Delete
-									</Button>
-								</td>
-							</tr>
-						);
-					})}
-				</tbody>
-			</table>
-		</div>
+		<MDBTable small>
+			<MDBTableHead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Actions</th>
+				</tr>
+			</MDBTableHead>
+			<MDBTableBody>
+				{items.map((item) => {
+					return (
+						<tr key={item._id}>
+							<td>{item.name}</td>
+							<td>{item.desc}</td>
+							<td>
+								<MDBBtn
+									onClick={() =>
+										handleEdit(
+											item._id,
+											item.name,
+											item.desc
+										)
+									}
+									size='sm'
+									color='warning'
+									style={{ border: 'none' }}
+								>
+									Edit
+								</MDBBtn>
+
+								<MDBBtn
+									onClick={() => handleDelete(item._id)}
+									size='sm'
+									color='danger'
+									style={{ border: 'none' }}
+								>
+									Delete
+								</MDBBtn>
+							</td>
+						</tr>
+					);
+				})}
+			</MDBTableBody>
+		</MDBTable>
 	);
 };
 

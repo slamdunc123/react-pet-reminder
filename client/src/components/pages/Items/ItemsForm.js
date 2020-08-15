@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/esm/Button';
-import Form from 'react-bootstrap/Form';
+import {
+	MDBContainer,
+	MDBInput,
+	MDBIcon,
+	MDBBtn,
+	MDBRow,
+	MDBCol,
+} from 'mdbreact';
 
 const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 	const [formData, setFormData] = useState({
@@ -36,37 +42,61 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 	}, [editedItem]);
 
 	return (
-		<div className='container'>
-			<Form onSubmit={handleOnSubmit}>
-				<Form.Group controlId='itemName'>
-					<Form.Label>Name</Form.Label>
-					<Form.Control
-						type='text'
-						placeholder='Name'
-						name='name'
-						value={name}
-						onChange={handleOnChange}
-					/>
-					<Form.Text className='text-muted'>
-						We'll never share your email with anyone else.
-					</Form.Text>
-				</Form.Group>
-
-				<Form.Group controlId='itemDesc'>
-					<Form.Label>Password</Form.Label>
-					<Form.Control
-						type='text'
-						placeholder='Description'
-						name='desc'
-						value={desc}
-						onChange={handleOnChange}
-					/>
-				</Form.Group>
-				<Button variant='primary' type='submit'>
-					{isEditing ? 'Update' : 'Create'}
-				</Button>
-			</Form>
-		</div>
+		<MDBContainer>
+			<MDBRow>
+				<MDBCol md='12'>
+					<form onSubmit={handleOnSubmit}>
+						<div className='input-group'>
+							<MDBIcon
+								icon='tag'
+								size='lg'
+								className='mdb-color-text lighten-1 pt-4 pr-2'
+							/>
+							<MDBInput
+								label='Item name'
+								type='text'
+								validate
+								error='wrong'
+								p-4
+								success='right'
+								name='name'
+								value={name}
+								onChange={handleOnChange}
+								className='m-0'
+							/>
+						</div>
+						<div className='input-group'>
+							<MDBIcon
+								icon='pencil-alt'
+								size='lg'
+								className='mdb-color-text lighten-1 pt-4 pr-2'
+							/>
+							<MDBInput
+								label='Item description'
+								type='text'
+								validate
+								name='desc'
+								value={desc}
+								onChange={handleOnChange}
+								className='m-0'
+							/>
+						</div>
+						<div className='input-group'>
+							<MDBBtn
+								type='submit'
+								size='sm'
+								border
+								border-0
+								color='primary'
+								style={{ border: 'none' }}
+							>
+								{isEditing ? 'Update' : 'Create'}
+							</MDBBtn>
+						</div>
+					</form>
+				</MDBCol>
+			</MDBRow>
+		</MDBContainer>
 	);
 };
 
