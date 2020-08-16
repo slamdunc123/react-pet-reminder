@@ -12,8 +12,6 @@ import {
 	updateItem,
 } from '../../../redux/actions/itemsActions';
 
-import './items.scss';
-
 const Items = ({
 	getItems,
 	createItem,

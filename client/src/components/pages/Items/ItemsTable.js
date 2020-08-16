@@ -44,7 +44,9 @@ const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 									onClick={() => handleDelete(item._id)}
 									size='sm'
 									color='danger'
-									style={{ border: 'none' }}
+									style={{
+										border: 'none',
+									}}
 								>
 									<MDBIcon icon='times-circle' size='lg' />
 								</MDBBtn>

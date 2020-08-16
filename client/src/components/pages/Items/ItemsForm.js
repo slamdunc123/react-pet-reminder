@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-	MDBContainer,
-	MDBInput,
-	MDBIcon,
-	MDBBtn,
-	MDBRow,
-	MDBCol,
-} from 'mdbreact';
+import { MDBContainer, MDBInput, MDBBtn, MDBRow, MDBCol } from 'mdbreact';
 
 const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 	const [formData, setFormData] = useState({
@@ -46,12 +39,7 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 			<MDBRow>
 				<MDBCol md='12'>
 					<form onSubmit={handleOnSubmit}>
-						<div className='input-group'>
-							<MDBIcon
-								icon='tag'
-								size='lg'
-								className='mdb-color-text lighten-1 pt-4 pr-2'
-							/>
+						<div className='grey-text'>
 							<MDBInput
 								label='Item name'
 								type='text'
@@ -62,15 +50,9 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 								name='name'
 								value={name}
 								onChange={handleOnChange}
-								className='m-0'
+								icon='box-open'
 							/>
-						</div>
-						<div className='input-group'>
-							<MDBIcon
-								icon='pencil-alt'
-								size='lg'
-								className='mdb-color-text lighten-1 pt-4 pr-2'
-							/>
+
 							<MDBInput
 								label='Item description'
 								type='text'
@@ -78,10 +60,9 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 								name='desc'
 								value={desc}
 								onChange={handleOnChange}
-								className='m-0'
+								icon='pen'
 							/>
-						</div>
-						<div className='input-group'>
+
 							<MDBBtn
 								type='submit'
 								size='sm'

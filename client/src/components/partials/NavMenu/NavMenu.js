@@ -14,6 +14,7 @@ import {
 const NavMenu = () => {
 	const [collapse, setCollapse] = useState(false);
 	const [isWideEnough, setIsWideEnough] = useState(false);
+	const [activeLink, setActiveLink] = useState(false);
 
 	const handleOnClick = () => {
 		setCollapse(!collapse);
@@ -33,7 +34,7 @@ const NavMenu = () => {
 			{!isWideEnough && <MDBNavbarToggler onClick={handleOnClick} />}
 			<MDBCollapse isOpen={collapse} navbar>
 				<MDBNavbarNav right>
-					<MDBNavItem active onClick={handleOnClick}>
+					<MDBNavItem active={activeLink} onClick={handleOnClick}>
 						<MDBNavLink to='/'>Home</MDBNavLink>
 					</MDBNavItem>
 					<MDBNavItem onClick={handleOnClick}>
