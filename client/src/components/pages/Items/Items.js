@@ -4,7 +4,7 @@ import ItemsTable from './ItemsTable';
 import ItemsForm from './ItemsForm';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	getItems,
 	createItem,
@@ -12,14 +12,10 @@ import {
 	updateItem,
 } from '../../../redux/actions/itemsActions';
 
-const Items = ({
-	getItems,
-	createItem,
-	deleteItem,
-	updateItem,
-	items,
-	loading,
-}) => {
+const Items = () => {
+	const items = useSelector((state) => state.itemsReducer.items); //gets from rootReducer which has itemsReducer imported
+	const loading = useSelector((state) => state.itemsReducer.loading); //gets from rootReducer which has itemsReducer imported
+	const dispatch = useDispatch();
 	const container = { height: 1300 };
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedItem, setEditedItem] = useState({
@@ -30,17 +26,17 @@ const Items = ({
 	const [updatedItem, setUpdatedItem] = useState(false);
 
 	const handleCreate = (formData) => {
-		createItem(formData);
+		dispatch(createItem(formData));
 	};
 
 	const handleUpdate = (id, formData) => {
-		updateItem(id, formData);
+		dispatch(updateItem(id, formData));
 		setIsEditing(false);
 		setUpdatedItem(true);
 	};
 
 	const handleDelete = (id) => {
-		deleteItem(id);
+		dispatch(deleteItem(id));
 	};
 
 	const handleEdit = (id, name, desc) => {
@@ -54,9 +50,9 @@ const Items = ({
 	};
 
 	useEffect(() => {
-		getItems();
+		dispatch(getItems());
 		setUpdatedItem(false);
-	}, [updatedItem]);
+	}, [updatedItem, dispatch]);
 	return (
 		<MDBContainer style={container} className='text-left mt-5 pt-5'>
 			<MDBRow>
@@ -86,18 +82,4 @@ const Items = ({
 	);
 };
 
-const mapStateToProps = (state) => {
-	return {
-		items: state.itemsReducer.items, // gets from rootReducer which has itemsReducer imported
-		loading: state.itemsReducer.loading, // gets from rootReducer which has itemsReducer imported
-	};
-};
-
-const mapDispatchToProps = {
-	getItems,
-	createItem,
-	deleteItem,
-	updateItem,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Items);
+export default Items;
