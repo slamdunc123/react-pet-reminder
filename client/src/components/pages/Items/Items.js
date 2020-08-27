@@ -93,9 +93,11 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
 	getItems,
 	createItem,
 	deleteItem,
 	updateItem,
-})(Items);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Items);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MDBContainer, MDBInput, MDBBtn, MDBRow, MDBCol } from 'mdbreact';
+import './items.scss';
 
 const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 	const [formData, setFormData] = useState({
@@ -62,17 +63,18 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 								onChange={handleOnChange}
 								icon='pen'
 							/>
-
-							<MDBBtn
-								type='submit'
-								size='sm'
-								border
-								border-0
-								color='primary'
-								style={{ border: 'none' }}
-							>
-								{isEditing ? 'Update' : 'Create'}
-							</MDBBtn>
+							<div className='round'>
+								<MDBBtn
+									type='submit'
+									size='sm'
+									border
+									border-0
+									color='primary'
+									style={{ border: 'none' }}
+								>
+									{isEditing ? 'Update' : 'Create'}
+								</MDBBtn>
+							</div>
 						</div>
 					</form>
 				</MDBCol>

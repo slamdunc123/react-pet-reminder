@@ -25,7 +25,15 @@ const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 							<td>{item.name}</td>
 							<td>{item.desc}</td>
 							<td>
-								<MDBBtn
+								{/* <MDBBtn
+									
+									size='sm'
+									color='warning'
+									style={{ border: 'none' }}
+								> */}
+								<MDBIcon
+									icon='edit'
+									size='lg'
 									onClick={() =>
 										handleEdit(
 											item._id,
@@ -33,23 +41,25 @@ const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 											item.desc
 										)
 									}
-									size='sm'
-									color='warning'
-									style={{ border: 'none' }}
-								>
-									<MDBIcon icon='edit' size='lg' />
-								</MDBBtn>
+									className='amber-text pr-2'
+								/>
+								{/* </MDBBtn> */}
 
-								<MDBBtn
-									onClick={() => handleDelete(item._id)}
+								{/* <MDBBtn
+									
 									size='sm'
 									color='danger'
 									style={{
 										border: 'none',
 									}}
-								>
-									<MDBIcon icon='times-circle' size='lg' />
-								</MDBBtn>
+								> */}
+								<MDBIcon
+									icon='times-circle'
+									size='lg'
+									onClick={() => handleDelete(item._id)}
+									className='red-text pr-2'
+								/>
+								{/* </MDBBtn> */}
 							</td>
 						</tr>
 					);
