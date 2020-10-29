@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Spinner from '../../partials/Spinner/Spinner';
 import ItemsTable from './ItemsTable';
 import ItemsForm from './ItemsForm';
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -16,7 +15,6 @@ const Items = () => {
 	const items = useSelector((state) => state.itemsReducer.items); //gets from rootReducer which has itemsReducer imported
 	const loading = useSelector((state) => state.itemsReducer.loading); //gets from rootReducer which has itemsReducer imported
 	const dispatch = useDispatch();
-	const container = { height: 1300 };
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedItem, setEditedItem] = useState({
 		id: '',
@@ -53,18 +51,20 @@ const Items = () => {
 		dispatch(getItems());
 		setUpdatedItem(false);
 	}, [updatedItem, dispatch]);
+
 	return (
-		<MDBContainer style={container} className='text-left mt-5 pt-5'>
-			<MDBRow>
-				<MDBCol md='6'>
+		<div className='container'>
+			<h3>Items</h3>
+			<div class='row'>
+				<div className='col-12 col-md-6'>
 					<ItemsForm
 						isEditing={isEditing}
 						editedItem={editedItem}
 						handleCreate={handleCreate}
 						handleUpdate={handleUpdate}
 					/>
-				</MDBCol>
-				<MDBCol md='6'>
+				</div>
+				<div className='col-12 col-md-6'>
 					{loading ? (
 						<Spinner />
 					) : items.length > 0 ? (
@@ -76,9 +76,9 @@ const Items = () => {
 					) : (
 						'No items to display - please add one'
 					)}
-				</MDBCol>
-			</MDBRow>
-		</MDBContainer>
+				</div>
+			</div>
+		</div>
 	);
 };
 

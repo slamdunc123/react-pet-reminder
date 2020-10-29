@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { MDBContainer, MDBInput, MDBBtn, MDBRow, MDBCol } from 'mdbreact';
+import Button from 'react-bootstrap/esm/Button';
+import Form from 'react-bootstrap/Form';
 import './items.scss';
 
 const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
@@ -36,50 +37,37 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 	}, [editedItem]);
 
 	return (
-		<MDBContainer>
-			<MDBRow>
-				<MDBCol md='12'>
-					<form onSubmit={handleOnSubmit}>
-						<div className='grey-text'>
-							<MDBInput
-								label='Item name'
-								type='text'
-								validate
-								error='wrong'
-								p-4
-								success='right'
-								name='name'
-								value={name}
-								onChange={handleOnChange}
-								icon='box-open'
-							/>
+		<div className='container'>
+			<Form onSubmit={handleOnSubmit}>
+				<Form.Group controlId='itemName'>
+					<Form.Label>Name</Form.Label>
+					<Form.Control
+						type='text'
+						placeholder='Name'
+						name='name'
+						value={name}
+						onChange={handleOnChange}
+					/>
+					<Form.Text className='text-muted'>
+						We'll never share your email with anyone else.
+					</Form.Text>
+				</Form.Group>
 
-							<MDBInput
-								label='Item description'
-								type='text'
-								validate
-								name='desc'
-								value={desc}
-								onChange={handleOnChange}
-								icon='pen'
-							/>
-							<div className='round'>
-								<MDBBtn
-									type='submit'
-									size='sm'
-									border
-									border-0
-									color='primary'
-									style={{ border: 'none' }}
-								>
-									{isEditing ? 'Update' : 'Create'}
-								</MDBBtn>
-							</div>
-						</div>
-					</form>
-				</MDBCol>
-			</MDBRow>
-		</MDBContainer>
+				<Form.Group controlId='itemDesc'>
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						type='text'
+						placeholder='Description'
+						name='desc'
+						value={desc}
+						onChange={handleOnChange}
+					/>
+				</Form.Group>
+				<Button variant='primary' type='submit'>
+					{isEditing ? 'Update' : 'Create'}
+				</Button>
+			</Form>
+		</div>
 	);
 };
 

@@ -1,48 +1,53 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Brand from '../Brand/Brand';
-import {
-	MDBNavbar,
-	MDBNavbarBrand,
-	MDBNavbarNav,
-	MDBNavbarToggler,
-	MDBCollapse,
-	MDBNavItem,
-	MDBNavLink,
-} from 'mdbreact';
 
 const NavMenu = () => {
 	const [collapse, setCollapse] = useState(false);
-	const [isWideEnough, setIsWideEnough] = useState(false);
-	const [activeLink, setActiveLink] = useState(false);
 
 	const handleOnClick = () => {
-		setCollapse(!collapse);
+		setCollapse(() => !collapse);
 	};
 	return (
-		<MDBNavbar
-			color='bg-primary'
-			fixed='top'
-			dark
-			expand='md'
-			scrolling
-			// transparent
-		>
-			<MDBNavbarBrand href='/'>
+		<nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
+			<a className='navbar-brand' href='#'>
 				<Brand />
-			</MDBNavbarBrand>
-			{!isWideEnough && <MDBNavbarToggler onClick={handleOnClick} />}
-			<MDBCollapse isOpen={collapse} navbar>
-				<MDBNavbarNav right>
-					<MDBNavItem active={activeLink} onClick={handleOnClick}>
-						<MDBNavLink to='/'>Home</MDBNavLink>
-					</MDBNavItem>
-					<MDBNavItem onClick={handleOnClick}>
-						<MDBNavLink to='/items'>Items</MDBNavLink>
-					</MDBNavItem>
-				</MDBNavbarNav>
-			</MDBCollapse>
-		</MDBNavbar>
+			</a>
+			<button
+				className={
+					collapse ? 'navbar-toggler collapsed' : 'navbar-toggler'
+				}
+				type='button'
+				onClick={handleOnClick}
+			>
+				<span class='navbar-toggler-icon'></span>
+			</button>
+			<div
+				className={
+					collapse
+						? 'navbar-collapse collapse show'
+						: 'navbar-collapse collapse'
+				}
+				id='navbarNavAltMarkup'
+			>
+				<div className='navbar-nav ml-auto'>
+					<Link
+						className='nav-item nav-link active'
+						to='/'
+						onClick={handleOnClick}
+					>
+						Home
+					</Link>
+					<Link
+						className='nav-item nav-link'
+						to='/items'
+						onClick={handleOnClick}
+					>
+						Items
+					</Link>
+				</div>
+			</div>
+		</nav>
 	);
 };
 
