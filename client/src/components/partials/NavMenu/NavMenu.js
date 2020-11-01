@@ -6,7 +6,7 @@ const NavMenu = () => {
 	const [collapse, setCollapse] = useState(false);
 
 	const handleOnClick = () => {
-		setCollapse(() => !collapse);
+		setCollapse((prevCollapse) => !prevCollapse);
 	};
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary'>

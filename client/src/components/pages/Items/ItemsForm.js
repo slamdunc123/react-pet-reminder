@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/esm/Button';
-import Form from 'react-bootstrap/Form';
 import './items.scss';
 
 const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
@@ -38,35 +36,43 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 
 	return (
 		<div className='container'>
-			<Form onSubmit={handleOnSubmit}>
-				<Form.Group controlId='itemName'>
-					<Form.Label>Name</Form.Label>
-					<Form.Control
+			<form onSubmit={handleOnSubmit}>
+				<div className='form-group'>
+					<label>Name</label>
+					<input
+						className='form-control'
 						type='text'
 						placeholder='Name'
 						name='name'
 						value={name}
 						onChange={handleOnChange}
 					/>
-					<Form.Text className='text-muted'>
-						We'll never share your email with anyone else.
-					</Form.Text>
-				</Form.Group>
+					<small id='nameHelp' className='form-text text-muted'>
+						Enter new item name.
+					</small>
+				</div>
 
-				<Form.Group controlId='itemDesc'>
-					<Form.Label>Password</Form.Label>
-					<Form.Control
+				<div className='form-group'>
+					<label>Description</label>
+					<input
+						className='form-control'
 						type='text'
 						placeholder='Description'
 						name='desc'
 						value={desc}
 						onChange={handleOnChange}
 					/>
-				</Form.Group>
-				<Button variant='primary' type='submit'>
+					<small
+						id='descriptionHelp'
+						className='form-text text-muted'
+					>
+						Enter new item description.
+					</small>
+				</div>
+				<button type='submit' class='btn btn-primary btn-sm'>
 					{isEditing ? 'Update' : 'Create'}
-				</Button>
-			</Form>
+				</button>
+			</form>
 		</div>
 	);
 };
