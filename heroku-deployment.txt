@@ -27,5 +27,6 @@ $ heroku create
 - copy heroku command in 'create a new git repository' section eg heroku git:remote -a fathomless-lowlands-88684
 
 $ heroku git:remote -a fathomless-lowlands-88684
+$ git push heroku master
 
 
