@@ -1,0 +1,31 @@
+- server.js
+
+const path = require('path');
+
+// serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+	// set static folder
+	app.use(express.static('client/build'));
+
+	app.get('*', (req, res) => {
+		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+	});
+}
+
+
+- package.json (server not  client)
+
+"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+
+- install heroku from website
+
+$ heroku login
+$ heroku create
+
+- go to website and click on newly created heroku url eg https://fathomless-lowlands-88684.herokuapp.com/
+- click on Deploy
+- copy heroku command in 'create a new git repository' section eg heroku git:remote -a fathomless-lowlands-88684
+
+$ heroku git:remote -a fathomless-lowlands-88684
+
+
