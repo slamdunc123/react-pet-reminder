@@ -17,6 +17,10 @@ if (process.env.NODE_ENV === 'production') {
 
 "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 
+- ensure git is in master branch and up to date eg
+$ git checkout master
+$ git merge develop
+
 - install heroku from website
 
 $ heroku login
