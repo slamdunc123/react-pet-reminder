@@ -20,7 +20,7 @@ const NavMenu = () => {
 				type='button'
 				onClick={handleOnClick}
 			>
-				<span class='navbar-toggler-icon'></span>
+				<span className='navbar-toggler-icon'></span>
 			</button>
 			<div
 				className={
@@ -44,6 +44,20 @@ const NavMenu = () => {
 						onClick={handleOnClick}
 					>
 						Items
+					</Link>
+					<Link
+						className='nav-item nav-link'
+						to='/login'
+						onClick={handleOnClick}
+					>
+						Login
+					</Link>
+					<Link
+						className='nav-item nav-link'
+						to='/register'
+						onClick={handleOnClick}
+					>
+						Register
 					</Link>
 				</div>
 			</div>
