@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../../redux/actions/authActions';
+// import axios from 'axios';
 
 const Register = () => {
+	const dispatch = useDispatch();
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -16,9 +20,28 @@ const Register = () => {
 		});
 	};
 
-	const handleOnSubmit = (e) => {
+	const handleOnSubmit = async (e) => {
 		e.preventDefault();
 		console.log(formData);
+		// this can be used to save user to database if redux not being used
+		// const newUser = {
+		// 	name,
+		// 	email,
+		// 	password,
+		// };
+		// try {
+		// 	const config = {
+		// 		headers: {
+		// 			'Content-Type': 'application/json',
+		// 		},
+		// 	};
+		// 	const body = JSON.stringify(newUser);
+		// 	const res = await axios.post('/api/users', body, config);
+		// 	console.log(res.data);
+		// } catch (err) {
+		// 	console.error(err.response.data);
+		// }
+		dispatch(register(name, email, password));
 		setFormData({
 			name: '',
 			email: '',
@@ -70,7 +93,7 @@ const Register = () => {
 						type='submit'
 						className='btn btn-primary'
 						name='register'
-						value='Login'
+						value='Save'
 					/>
 				</div>
 			</form>
