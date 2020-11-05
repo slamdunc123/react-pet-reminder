@@ -14,8 +14,9 @@ app.use(express.json({ extended: false }));
 // app.get('/', (req, res) => res.send('test route successful'));
 
 // define routes
-app.use('/api/items', require('./routes/api/items'));
-//localhost:5000/api/items
+app.use('/api/items', require('./routes/api/items')); //localhost:5000/api/items
+app.use('/api/auth', require('./routes/api/auth')); // http://localhost:5000/api/auth
+app.use('/api/users', require('./routes/api/users')); // http://localhost:5000/api/users
 
 // serve static assets in production
 if (process.env.NODE_ENV === 'production') {
