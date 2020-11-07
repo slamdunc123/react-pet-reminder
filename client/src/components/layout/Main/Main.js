@@ -1,9 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Home from '../../pages/Home/Home';
-import Items from '../../pages/Items/Items';
-import Login from '../../pages/Login/Login';
-import Register from '../../pages/Register/Register';
+import Routes from '../../../routing/Routes';
 
 const Main = () => {
 	return (
@@ -11,15 +9,7 @@ const Main = () => {
 			<Route exact path='/'>
 				<Home />
 			</Route>
-			<Route path='/items'>
-				<Items />
-			</Route>
-			<Route path='/login'>
-				<Login />
-			</Route>
-			<Route path='/register'>
-				<Register />
-			</Route>
+			<Route component={Routes} />
 		</Switch>
 	);
 };

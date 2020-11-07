@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../redux/actions/authActions';
+import { useHistory } from 'react-router-dom';
 // import axios from 'axios';
 
 const Login = () => {
 	const dispatch = useDispatch();
+	const isAuthenticated = useSelector(
+		(state) => state.authReducer.isAuthenticated
+	);
+	console.log('Login -> isAuthenticated', isAuthenticated);
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
+
+	const history = useHistory();
 
 	const { email, password } = formData;
 
@@ -45,6 +52,11 @@ const Login = () => {
 			password: '',
 		});
 	};
+
+	if (isAuthenticated) {
+		history.push('/items');
+	}
+
 	return (
 		<section className='container'>
 			<h1>Login In</h1>

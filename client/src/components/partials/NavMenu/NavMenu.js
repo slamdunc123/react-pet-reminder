@@ -1,12 +1,73 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Brand from '../Brand/Brand';
+import { useDispatch, useSelector } from 'react-redux';
 
 const NavMenu = () => {
 	const [collapse, setCollapse] = useState(false);
 
+	const isAuthenticated = useSelector(
+		(state) => state.authReducer.isAuthenticated
+	);
+
 	const handleOnClick = () => {
 		setCollapse((prevCollapse) => !prevCollapse);
+	};
+
+	const getNavMenu = () => {
+		if (isAuthenticated) {
+			return (
+				<>
+					<Link
+						className='nav-item nav-link'
+						to='/'
+						onClick={handleOnClick}
+					>
+						Home
+					</Link>
+					<Link
+						className='nav-item nav-link'
+						to='/items'
+						onClick={handleOnClick}
+					>
+						Items
+					</Link>
+					<Link
+						className='nav-item nav-link'
+						to='/logout'
+						onClick={handleOnClick}
+					>
+						Logout
+					</Link>
+				</>
+			);
+		} else {
+			return (
+				<>
+					<Link
+						className='nav-item nav-link'
+						to='/'
+						onClick={handleOnClick}
+					>
+						Home
+					</Link>
+					<Link
+						className='nav-item nav-link'
+						to='/login'
+						onClick={handleOnClick}
+					>
+						Login
+					</Link>
+					<Link
+						className='nav-item nav-link'
+						to='/register'
+						onClick={handleOnClick}
+					>
+						Register
+					</Link>
+				</>
+			);
+		}
 	};
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
@@ -30,36 +91,7 @@ const NavMenu = () => {
 				}
 				id='navbarNavAltMarkup'
 			>
-				<div className='navbar-nav ml-auto'>
-					<Link
-						className='nav-item nav-link active'
-						to='/'
-						onClick={handleOnClick}
-					>
-						Home
-					</Link>
-					<Link
-						className='nav-item nav-link'
-						to='/items'
-						onClick={handleOnClick}
-					>
-						Items
-					</Link>
-					<Link
-						className='nav-item nav-link'
-						to='/login'
-						onClick={handleOnClick}
-					>
-						Login
-					</Link>
-					<Link
-						className='nav-item nav-link'
-						to='/register'
-						onClick={handleOnClick}
-					>
-						Register
-					</Link>
-				</div>
+				<div className='navbar-nav ml-auto'>{getNavMenu()}</div>
 			</div>
 		</nav>
 	);

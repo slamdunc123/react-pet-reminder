@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../../redux/actions/authActions';
+import { useHistory } from 'react-router-dom';
 // import axios from 'axios';
 
 const Register = () => {
 	const dispatch = useDispatch();
+	const isAuthenticated = useSelector(
+		(state) => state.authReducer.isAuthenticated
+	);
+	console.log('Login -> isAuthenticated', isAuthenticated);
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
 		password: '',
 	});
+
+	const history = useHistory();
 
 	const { name, email, password } = formData;
 
@@ -41,13 +48,17 @@ const Register = () => {
 		// } catch (err) {
 		// 	console.error(err.response.data);
 		// }
-		dispatch(register(name, email, password));
+		dispatch(register({ name, email, password }));
 		setFormData({
 			name: '',
 			email: '',
 			password: '',
 		});
 	};
+
+	if (isAuthenticated) {
+		history.push('/login');
+	}
 
 	return (
 		<section className='container'>
