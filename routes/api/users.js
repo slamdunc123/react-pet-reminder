@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-// const { check, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator');
 // bring in the user model
 const User = require('../../models/User');
 
@@ -31,21 +31,21 @@ router.get('/', async (req, res) => {
 // to be able to send data (test in postman) using req.body, need this line in server.js  - app.use(express.json({ extended: false }));
 router.post(
 	'/',
-	// [
-	// 	// user validation using express-validator
-	// 	check('name', 'Name is required').not().isEmpty(),
-	// 	check('email', 'Please include a valid email').isEmail(),
-	// 	check(
-	// 		'password',
-	// 		'Please enter a password with 6 or more characters'
-	// 	).isLength({ min: 6 }),
-	// ],
+	[
+		// user validation using express-validator
+		check('name', 'Name is required').not().isEmpty(),
+		check('email', 'Please include a valid email').isEmail(),
+		check(
+			'password',
+			'Please enter a password with 6 or more characters'
+		).isLength({ min: 6 }),
+	],
 	async (req, res) => {
 		console.log(req.body);
-		// const errors = validationResult(req);
-		// if (!errors.isEmpty()) {
-		// 	return res.status(400).json({ errors: errors.array() });
-		// }
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
 
 		const { name, email, password } = req.body;
 
