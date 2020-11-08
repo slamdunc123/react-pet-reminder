@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Brand from '../Brand/Brand';
 import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../redux/actions/authActions';
 
 const NavMenu = () => {
+	const dispatch = useDispatch();
 	const [collapse, setCollapse] = useState(false);
 
 	const isAuthenticated = useSelector(
@@ -12,6 +14,11 @@ const NavMenu = () => {
 
 	const handleOnClick = () => {
 		setCollapse((prevCollapse) => !prevCollapse);
+	};
+
+	const handleLogout = () => {
+		dispatch(logout);
+		handleOnClick();
 	};
 
 	const getNavMenu = () => {
@@ -32,13 +39,13 @@ const NavMenu = () => {
 					>
 						Items
 					</Link>
-					<Link
+					<a
 						className='nav-item nav-link'
-						to='/logout'
-						onClick={handleOnClick}
+						href='/login'
+						onClick={handleLogout}
 					>
 						Logout
-					</Link>
+					</a>
 				</>
 			);
 		} else {
