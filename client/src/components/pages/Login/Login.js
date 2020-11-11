@@ -47,10 +47,10 @@ const Login = () => {
 		// 	console.error(err.response.data);
 		// }
 		dispatch(login(email, password));
-		setFormData({
-			email: '',
-			password: '',
-		});
+		// setFormData({
+		// 	email: '',
+		// 	password: '',
+		// });
 	};
 
 	if (isAuthenticated) {

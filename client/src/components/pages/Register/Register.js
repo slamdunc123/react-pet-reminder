@@ -49,11 +49,11 @@ const Register = () => {
 		// 	console.error(err.response.data);
 		// }
 		dispatch(register({ name, email, password }));
-		setFormData({
-			name: '',
-			email: '',
-			password: '',
-		});
+		// setFormData({
+		// 	name: '',
+		// 	email: '',
+		// 	password: '',
+		// });
 	};
 
 	if (isAuthenticated) {
