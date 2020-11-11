@@ -12,6 +12,8 @@ client
 - mdbreact
 - react-bootstrap - removed
 - mdbreact - removed
+- formik
+- yup
 
 add this line to client >> package.json
 "proxy": "http://localhost:5000"
