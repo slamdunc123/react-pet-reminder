@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../../redux/actions/authActions';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { initialValues, validationSchema } from './registerFormConfig';
 
@@ -10,14 +10,13 @@ const Register = () => {
 	const isAuthenticated = useSelector(
 		(state) => state.authReducer.isAuthenticated
 	);
-	const history = useHistory();
 
 	const handleOnSubmit = ({ name, email, password }) => {
 		dispatch(register({ name, email, password }));
 	};
 
 	if (isAuthenticated) {
-		history.push('/login');
+		return <Redirect to='/' />;
 	}
 
 	return (
@@ -26,7 +25,7 @@ const Register = () => {
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
-				onSubmit={(fields) => handleOnSubmit(fields)}
+				onSubmit={handleOnSubmit}
 			>
 				{({ errors, status, touched }) => (
 					<Form>
