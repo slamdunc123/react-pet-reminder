@@ -43,7 +43,7 @@ const ItemsTable = ({ items, handleDelete, handleEdit }) => {
 								</td>
 							</tr>
 						);
-					})}{' '}
+					})}
 				</tbody>
 			</table>
 		</div>

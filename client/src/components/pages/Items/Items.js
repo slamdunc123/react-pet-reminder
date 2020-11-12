@@ -25,9 +25,11 @@ const Items = () => {
 
 	const handleCreate = (formData) => {
 		dispatch(createItem(formData));
+		setIsEditing(false);
 	};
 
 	const handleUpdate = (id, formData) => {
+		console.log(formData);
 		dispatch(updateItem(id, formData));
 		setIsEditing(false);
 		setUpdatedItem(true);
@@ -55,7 +57,7 @@ const Items = () => {
 	return (
 		<div className='container'>
 			<h3>Items</h3>
-			<div class='row'>
+			<div className='row'>
 				<div className='col-12 col-md-6'>
 					<ItemsForm
 						isEditing={isEditing}

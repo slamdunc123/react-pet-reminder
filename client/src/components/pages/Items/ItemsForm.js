@@ -1,78 +1,82 @@
 import React, { useState, useEffect } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { initialValues, validationSchema } from './itemsFormConfig';
 import './items.scss';
 
 const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
-	const [formData, setFormData] = useState({
-		name: '',
-		desc: '',
-	});
-	console.log(isEditing, editedItem);
-	const { name, desc } = formData;
+	const { name, desc } = editedItem;
 
-	const handleOnChange = (e) => {
-		setFormData({
-			...formData,
-			[e.target.name]: e.target.value,
-		});
+	const handleOnSubmit = (fields, { resetForm }) => {
+		isEditing ? handleUpdate(editedItem.id, fields) : handleCreate(fields);
+		resetForm(initialValues);
 	};
-	const handleOnSubmit = (e) => {
-		e.preventDefault();
-		isEditing
-			? handleUpdate(editedItem.id, formData)
-			: handleCreate(formData);
-
-		setFormData({
-			name: '',
-			desc: '',
-		});
-	};
-
-	useEffect(() => {
-		setFormData({
-			name: editedItem.name,
-			desc: editedItem.desc,
-		});
-	}, [editedItem]);
 
 	return (
 		<div className='container'>
-			<form onSubmit={handleOnSubmit}>
-				<div className='form-group'>
-					<label>Name</label>
-					<input
-						className='form-control'
-						type='text'
-						placeholder='Name'
-						name='name'
-						value={name}
-						onChange={handleOnChange}
-					/>
-					<small id='nameHelp' className='form-text text-muted'>
-						Enter new item name.
-					</small>
-				</div>
-
-				<div className='form-group'>
-					<label>Description</label>
-					<input
-						className='form-control'
-						type='text'
-						placeholder='Description'
-						name='desc'
-						value={desc}
-						onChange={handleOnChange}
-					/>
-					<small
-						id='descriptionHelp'
-						className='form-text text-muted'
-					>
-						Enter new item description.
-					</small>
-				</div>
-				<button type='submit' class='btn btn-primary btn-sm'>
-					{isEditing ? 'Update' : 'Create'}
-				</button>
-			</form>
+			{console.log(isEditing)}
+			{console.log(initialValues)}
+			<Formik
+				enableReinitialize
+				validateOnChange={false}
+				validateOnBlur={false}
+				initialValues={isEditing ? { name, desc } : initialValues}
+				validationSchema={validationSchema}
+				onSubmit={handleOnSubmit}
+			>
+				{({ values, errors, status, touched }) => (
+					<Form>
+						<div className='form-group'>
+							<label htmlFor='name'>Name</label>
+							<Field
+								value={values.name}
+								name='name'
+								type='text'
+								className={
+									'form-control' +
+									(errors.name && touched.name
+										? ' is-invalid'
+										: '')
+								}
+							/>
+							<ErrorMessage
+								name='name'
+								component='div'
+								className='invalid-feedback'
+							/>
+						</div>
+						<div className='form-group'>
+							<label htmlFor='desc'>Description</label>
+							<Field
+								value={values.desc}
+								name='desc'
+								type='text'
+								className={
+									'form-control' +
+									(errors.desc && touched.desc
+										? ' is-invalid'
+										: '')
+								}
+							/>
+							<ErrorMessage
+								name='desc'
+								component='div'
+								className='invalid-feedback'
+							/>
+						</div>
+						<div className='form-group'>
+							<button
+								type='submit'
+								className='btn btn-primary mr-2'
+							>
+								{isEditing ? 'Update' : 'Add'}
+							</button>
+							<button type='reset' className='btn btn-secondary'>
+								Reset
+							</button>
+						</div>
+					</Form>
+				)}
+			</Formik>
 		</div>
 	);
 };
