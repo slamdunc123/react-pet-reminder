@@ -84,6 +84,27 @@ const Register = () => {
 							/>
 						</div>
 						<div className='form-group'>
+							<label htmlFor='passwordConfirmation'>
+								Confirm Password
+							</label>
+							<Field
+								name='passwordConfirmation'
+								type='text'
+								className={
+									'form-control' +
+									(errors.passwordConfirmation &&
+									touched.passwordConfirmation
+										? ' is-invalid'
+										: '')
+								}
+							/>
+							<ErrorMessage
+								name='passwordConfirmation'
+								component='div'
+								className='invalid-feedback'
+							/>
+						</div>
+						<div className='form-group'>
 							<button
 								type='submit'
 								className='btn btn-primary mr-2'
