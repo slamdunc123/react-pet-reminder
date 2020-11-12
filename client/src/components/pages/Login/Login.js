@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../../redux/actions/authActions';
 import { useHistory } from 'react-router-dom';
@@ -28,7 +28,8 @@ const Login = () => {
 				initialValues={initialValues}
 				validationSchema={validationSchema}
 				onSubmit={(fields) => handleOnSubmit(fields)}
-				render={({ errors, status, touched }) => (
+			>
+				{({ errors, status, touched }) => (
 					<Form>
 						<div className='form-group'>
 							<label htmlFor='email'>Email</label>
@@ -79,7 +80,7 @@ const Login = () => {
 						</div>
 					</Form>
 				)}
-			/>
+			</Formik>
 		</section>
 	);
 };

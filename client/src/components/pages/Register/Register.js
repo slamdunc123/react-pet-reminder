@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../../redux/actions/authActions';
 import { useHistory } from 'react-router-dom';
@@ -27,7 +27,8 @@ const Register = () => {
 				initialValues={initialValues}
 				validationSchema={validationSchema}
 				onSubmit={(fields) => handleOnSubmit(fields)}
-				render={({ errors, status, touched }) => (
+			>
+				{({ errors, status, touched }) => (
 					<Form>
 						<div className='form-group'>
 							<label htmlFor='name'>Name</label>
@@ -96,7 +97,7 @@ const Register = () => {
 						</div>
 					</Form>
 				)}
-			/>
+			</Formik>
 		</section>
 	);
 };
