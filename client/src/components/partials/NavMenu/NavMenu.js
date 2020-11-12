@@ -78,9 +78,9 @@ const NavMenu = () => {
 	};
 	return (
 		<nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
-			<a className='navbar-brand' href='#'>
+			<Link className='navbar-brand' to='/'>
 				<Brand />
-			</a>
+			</Link>
 			<button
 				className={
 					collapse ? 'navbar-toggler collapsed' : 'navbar-toggler'
