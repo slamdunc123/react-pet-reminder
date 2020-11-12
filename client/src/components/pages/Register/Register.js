@@ -91,9 +91,6 @@ const Register = () => {
 							>
 								Register
 							</button>
-							<button type='reset' className='btn btn-secondary'>
-								Reset
-							</button>
 						</div>
 					</Form>
 				)}

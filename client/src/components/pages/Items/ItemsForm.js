@@ -70,9 +70,6 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 							>
 								{isEditing ? 'Update' : 'Add'}
 							</button>
-							<button type='reset' className='btn btn-secondary'>
-								Reset
-							</button>
 						</div>
 					</Form>
 				)}

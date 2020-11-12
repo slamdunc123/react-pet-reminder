@@ -74,9 +74,6 @@ const Login = () => {
 							>
 								Login
 							</button>
-							<button type='reset' className='btn btn-secondary'>
-								Reset
-							</button>
 						</div>
 					</Form>
 				)}
