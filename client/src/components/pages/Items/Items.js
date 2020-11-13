@@ -10,6 +10,7 @@ import {
 	deleteItem,
 	updateItem,
 } from '../../../redux/actions/itemsActions';
+import Modal from '../../partials/Modal/Modal';
 
 const Items = () => {
 	const items = useSelector((state) => state.itemsReducer.items); //gets from rootReducer which has itemsReducer imported
@@ -23,28 +24,33 @@ const Items = () => {
 	});
 	const [updatedItem, setUpdatedItem] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const [modalTitle, setModalTitle] = useState('');
+	const [itemId, setItemId] = useState();
 
 	const handleCreate = (formData) => {
 		setShowModal(false);
-		dispatch(createItem(formData));
 		setIsEditing(false);
+		dispatch(createItem(formData));
 	};
 
 	const handleAdd = () => {
 		setShowModal(true);
+		setIsEditing(false);
+		setModalTitle('add');
 	};
 
 	const handleUpdate = (id, formData) => {
 		console.log(formData);
 		setShowModal(false);
-		dispatch(updateItem(id, formData));
 		setIsEditing(false);
 		setUpdatedItem(true);
+		dispatch(updateItem(id, formData));
 	};
 
 	const handleEdit = (id, name, desc) => {
 		console.log(id, name, desc);
 		setShowModal(true);
+		setModalTitle('edit');
 		setIsEditing(true);
 		setEditedItem({
 			id: id,
@@ -53,48 +59,43 @@ const Items = () => {
 		});
 	};
 
-	const handleDelete = (id) => {
-		dispatch(deleteItem(id));
+	const handleDelete = () => {
+		setShowModal(false);
+		dispatch(deleteItem(itemId));
+	};
+
+	const handleRemove = (id) => {
+		setItemId(id);
+		setShowModal(true);
+		setModalTitle('delete');
+	};
+
+	const getModalBody = () => {
+		return modalTitle === 'delete' ? (
+			<>
+				<h3>Are you sure?</h3>
+				<hr />
+				<button className='btn btn-danger' onClick={handleDelete}>
+					Delete
+				</button>
+			</>
+		) : (
+			<ItemsForm
+				isEditing={isEditing}
+				editedItem={editedItem}
+				handleCreate={handleCreate}
+				handleUpdate={handleUpdate}
+			/>
+		);
 	};
 
 	const getModal = () => {
-		console.log('handleAdd fired');
 		return (
-			<div
-				className='modal'
-				tabindex='-1'
-				role='dialog'
-				style={{ display: 'block' }}
-			>
-				<div className='modal-dialog' role='document'>
-					<div className='modal-content'>
-						<div className='modal-header'>
-							<h5 className='modal-title'>
-								{isEditing ? 'Edit Item' : 'Add Item'}
-							</h5>
-							<button
-								type='button'
-								className='close'
-								data-dismiss='modal'
-								aria-label='Close'
-								onClick={() => setShowModal(false)}
-							>
-								<span aria-hidden='true'>&times;</span>
-							</button>
-						</div>
-						<div className='modal-body'>
-							<div className='col-12'>
-								<ItemsForm
-									isEditing={isEditing}
-									editedItem={editedItem}
-									handleCreate={handleCreate}
-									handleUpdate={handleUpdate}
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<Modal
+				title={modalTitle}
+				body={getModalBody()}
+				setShowModal={setShowModal}
+			/>
 		);
 	};
 
@@ -114,12 +115,21 @@ const Items = () => {
 					) : items.length > 0 ? (
 						<ItemsTable
 							items={items}
-							handleDelete={handleDelete}
+							handleRemove={handleRemove}
 							handleEdit={handleEdit}
 							handleAdd={handleAdd}
 						/>
 					) : (
-						'No items to display - please add one'
+						<>
+							<p>No items to display - please add one</p>
+
+							<button
+								className='btn btn-primary mr-2'
+								onClick={handleAdd}
+							>
+								Add
+							</button>
+						</>
 					)}
 				</div>
 			</div>
