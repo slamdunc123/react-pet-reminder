@@ -9,12 +9,12 @@ const Routes = () => {
 	return (
 		<>
 			<Switch>
-				<PrivateRoute component={Items} path='/items' exact />
+				{/* <PrivateRoute component={Items} path='/items' exact /> */}
 				{/* <PrivateRoute component={Login} path='/login' exact />
 				<PrivateRoute component={Register} path='/register' exact /> */}
-				{/* <Route path='/items'>
+				<Route path='/items'>
 					<Items />
-				</Route> */}
+				</Route>
 				<Route path='/login'>
 					<Login />
 				</Route>
