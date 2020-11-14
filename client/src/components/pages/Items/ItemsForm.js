@@ -63,6 +63,7 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 								className='invalid-feedback'
 							/>
 						</div>
+						<hr />
 						<div className='form-group'>
 							<button
 								type='submit'

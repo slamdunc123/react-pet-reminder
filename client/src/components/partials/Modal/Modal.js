@@ -3,12 +3,18 @@ import React from 'react';
 const Modal = ({ title, body, setShowModal }) => {
 	return (
 		<div
-			className='modal'
-			tabindex='-1'
+			className='modal-backdrop'
+			tabIndex='-1'
 			role='dialog'
 			style={{ display: 'block' }}
 		>
-			<div className='modal-dialog shadow' role='document'>
+			<div
+				className='modal-dialog shadow 
+                animate__animated
+                animate__faster
+			    animate__fadeInDown'
+				role='document'
+			>
 				<div className='modal-content'>
 					<div className='modal-header'>
 						<h5 className='modal-title'>{title}</h5>
