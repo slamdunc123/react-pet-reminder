@@ -12,7 +12,6 @@ const Login = () => {
 	);
 
 	const handleOnSubmit = (fields) => {
-		console.log('handleOnSubmit -> fields', fields);
 		dispatch(login(fields.email, fields.password));
 	};
 

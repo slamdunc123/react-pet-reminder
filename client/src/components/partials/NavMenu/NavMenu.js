@@ -17,7 +17,7 @@ const NavMenu = () => {
 	};
 
 	const handleLogout = () => {
-		dispatch(logout);
+		dispatch(logout());
 		handleOnClick();
 	};
 
@@ -39,13 +39,13 @@ const NavMenu = () => {
 					>
 						Items
 					</Link>
-					<a
+					<Link
 						className='nav-item nav-link'
-						href='/login'
+						to='/'
 						onClick={handleLogout}
 					>
 						Logout
-					</a>
+					</Link>
 				</>
 			);
 		} else {
