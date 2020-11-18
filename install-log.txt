@@ -15,6 +15,7 @@ client
 - formik
 - yup
 - storybook
+- uuid
 
 add this line to client >> package.json
 "proxy": "http://localhost:5000"

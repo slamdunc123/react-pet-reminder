@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Alert from '../components/partials/Alert/Alert';
 import Items from '../components/pages/Items/Items';
 import Home from '../components/pages/Home/Home';
 import Login from '../components/pages/Login/Login';
@@ -10,6 +11,7 @@ import PrivateRoute from './PrivateRoute';
 const Routes = () => {
 	return (
 		<>
+			<Alert />
 			<Switch>
 				<PrivateRoute component={Items} path='/items' exact />
 				{/* <PrivateRoute component={Login} path='/login' exact />
