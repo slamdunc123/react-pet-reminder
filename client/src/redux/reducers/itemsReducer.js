@@ -43,12 +43,10 @@ export default function (state = initialState, action) {
 					return {
 						...state,
 						items: [...state.items, payload],
+						loading: false,
 					};
 				} else return state;
 			});
-
-			break;
-
 		default:
 			return state;
 	}

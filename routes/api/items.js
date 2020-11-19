@@ -70,7 +70,7 @@ router.delete('/:id', async (req, res) => {
 		await item.remove();
 
 		res.json({
-			msg: 'Item deleted',
+			msg: 'Item deleted successfully.',
 		});
 	} catch (err) {
 		console.error(err.message);
@@ -95,7 +95,7 @@ router.put('/:id', async (req, res) => {
 		}
 		item = await Item.findByIdAndUpdate(req.params.id, req.body);
 		res.json({
-			msg: 'Item updated',
+			msg: 'Item updated successfully.',
 			item: item,
 		});
 	} catch (err) {

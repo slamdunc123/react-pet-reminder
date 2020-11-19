@@ -49,12 +49,13 @@ export const createItem = (formData) => async (dispatch) => {
 export const deleteItem = (id) => async (dispatch) => {
 	console.log('deleteItem fired', id);
 	try {
-		await axios.delete(`/api/items/${id}`);
+		const res = await axios.delete(`/api/items/${id}`);
 
 		dispatch({
 			type: DELETE_ITEM,
 			payload: id,
 		});
+		dispatch(setAlert(res.data.msg, 'success'));
 	} catch (err) {
 		console.error(err.error);
 	}
@@ -74,6 +75,7 @@ export const updateItem = (id, formData) => async (dispatch) => {
 			type: UPDATE_ITEM,
 			payload: res.data,
 		});
+		dispatch(setAlert(res.data.msg, 'success'));
 	} catch (err) {
 		console.error(err.error);
 	}
