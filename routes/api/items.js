@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
 		});
 		// save item to database
 		item = await newItem.save();
-		res.json(item);
+		res.json({ item: item, msg: 'Item created' });
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server error');

@@ -34,8 +34,9 @@ export const createItem = (formData) => async (dispatch) => {
 
 		dispatch({
 			type: CREATE_ITEM,
-			payload: res.data,
+			payload: res.data.item,
 		});
+		dispatch(setAlert(res.data.msg, 'success'));
 	} catch (err) {
 		const errors = err.response.data.errors;
 
