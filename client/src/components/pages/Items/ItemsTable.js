@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 const ItemsTable = ({ items, handleAdd, handleRemove, handleEdit }) => {
+	const alerts = useSelector((state) => state.alertReducer);
 	return (
 		<div className='table-responsive'>
-			<button className='btn' onClick={handleAdd}>
+			<button
+				className='btn'
+				disabled={alerts.length > 0}
+				onClick={handleAdd}
+			>
 				<i className='fas fa-plus-circle fa-lg text-success'></i>
 			</button>
 			<table className='table'>
@@ -31,13 +37,14 @@ const ItemsTable = ({ items, handleAdd, handleRemove, handleEdit }) => {
 											)
 										}
 										className='btn'
+										disabled={alerts.length > 0}
 									>
 										<i className='fas fa-pencil-alt text-warning'></i>
 									</button>
 									<button
 										onClick={() => handleRemove(item._id)}
-										type='button'
 										className='btn'
+										disabled={alerts.length > 0}
 									>
 										<i className='fas fa-trash text-danger'></i>
 									</button>
