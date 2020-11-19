@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Brand from '../Brand/Brand';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../redux/actions/authActions';
+import { resetAlerts } from '../../../redux/actions/alertActions';
 
 const NavMenu = () => {
 	const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const NavMenu = () => {
 	};
 
 	const handleLogout = () => {
+		dispatch(resetAlerts());
 		dispatch(logout());
 		handleOnClick();
 	};

@@ -10,6 +10,7 @@ import {
 	deleteItem,
 	updateItem,
 } from '../../../redux/actions/itemsActions';
+import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
 
 const Items = () => {
@@ -100,6 +101,7 @@ const Items = () => {
 	};
 
 	useEffect(() => {
+		dispatch(resetAlerts());
 		dispatch(getItems());
 		setUpdatedItem(false);
 	}, [updatedItem, dispatch]);

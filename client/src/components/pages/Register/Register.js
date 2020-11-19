@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../../redux/actions/authActions';
+import { resetAlerts } from '../../../redux/actions/alertActions';
 import { Redirect } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { initialValues, validationSchema } from './registerFormConfig';
@@ -12,8 +13,13 @@ const Register = () => {
 	);
 
 	const handleOnSubmit = ({ name, email, password }) => {
+		dispatch(resetAlerts());
 		dispatch(register({ name, email, password }));
 	};
+
+	useEffect(() => {
+		dispatch(resetAlerts());
+	}, [dispatch]);
 
 	if (isAuthenticated) {
 		return <Redirect to='/' />;

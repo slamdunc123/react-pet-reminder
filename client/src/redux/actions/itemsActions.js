@@ -3,6 +3,7 @@ import { GET_ITEMS } from './types';
 import { CREATE_ITEM } from './types';
 import { DELETE_ITEM } from './types';
 import { UPDATE_ITEM } from './types';
+import { setAlert } from '../actions/alertActions';
 
 // get items
 export const getItems = () => async (dispatch) => {
@@ -36,7 +37,11 @@ export const createItem = (formData) => async (dispatch) => {
 			payload: res.data,
 		});
 	} catch (err) {
-		console.error(err.error);
+		const errors = err.response.data.errors;
+
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+		}
 	}
 };
 
