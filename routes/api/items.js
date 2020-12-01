@@ -11,9 +11,25 @@ const Item = require('../../models/Item');
 // @router  GET api/items - http://localhost:5000/api/items
 // @desc    Get all items
 // @access  Public
+
 router.get('/', async (req, res) => {
 	try {
 		const items = await Item.find();
+		res.json(items);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
+
+// @router  GET api/items - http://localhost:5000/api/items/1
+// @desc    Get item by userId
+// @access  Public
+
+router.get('/:userId', async (req, res) => {
+	console.log(req.params);
+	try {
+		const items = await Item.find({ userId: req.params.userId });
 		res.json(items);
 	} catch (err) {
 		console.error(err.message);
@@ -26,6 +42,7 @@ router.get('/', async (req, res) => {
 // @access Public
 
 router.post('/', async (req, res) => {
+	console.log('req.body', req.body);
 	const { name, desc } = req.body;
 	try {
 		// check if item naem already exists
@@ -41,7 +58,9 @@ router.post('/', async (req, res) => {
 		const newItem = new Item({
 			name: req.body.name,
 			desc: req.body.desc,
+			userId: req.body.userId,
 		});
+		console.log('newItem', newItem);
 		// save item to database
 		item = await newItem.save();
 		res.json({ item: item, msg: 'Item created' });

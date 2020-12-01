@@ -6,9 +6,9 @@ import { UPDATE_ITEM } from './types';
 import { setAlert } from '../actions/alertActions';
 
 // get items
-export const getItems = () => async (dispatch) => {
+export const getItems = (id) => async (dispatch) => {
 	try {
-		const res = await axios.get('/api/items');
+		const res = await axios.get(`/api/items/${id}`);
 
 		dispatch({
 			type: GET_ITEMS,
@@ -20,17 +20,19 @@ export const getItems = () => async (dispatch) => {
 };
 
 // create item
-export const createItem = (formData) => async (dispatch) => {
-	console.log('createItem fired', formData);
+export const createItem = (formData, userId) => async (dispatch) => {
+	console.log('createItem fired', formData, userId);
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
 		},
 	};
-	const body = formData;
+	const body = { ...formData, userId };
+	console.log(body);
 
 	try {
 		const res = await axios.post('/api/items', body, config);
+		console.log(res.data.item);
 
 		dispatch({
 			type: CREATE_ITEM,

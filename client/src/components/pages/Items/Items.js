@@ -14,6 +14,11 @@ import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
 
 const Items = () => {
+	const { token, isAuthenticated, user } = useSelector(
+		(state) => state.authReducer
+	);
+	const { _id } = user;
+	console.log(_id);
 	const items = useSelector((state) => state.itemsReducer.items); //gets from rootReducer which has itemsReducer imported
 	const loading = useSelector((state) => state.itemsReducer.loading); //gets from rootReducer which has itemsReducer imported
 	const dispatch = useDispatch();
@@ -31,7 +36,7 @@ const Items = () => {
 	const handleCreate = (formData) => {
 		setShowModal(false);
 		setIsEditing(false);
-		dispatch(createItem(formData));
+		dispatch(createItem(formData, _id));
 	};
 
 	const handleAdd = () => {
@@ -102,7 +107,7 @@ const Items = () => {
 
 	useEffect(() => {
 		dispatch(resetAlerts());
-		dispatch(getItems());
+		dispatch(getItems(user._id));
 		setUpdatedItem(false);
 	}, [updatedItem, dispatch]);
 
