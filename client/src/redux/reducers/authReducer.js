@@ -21,6 +21,7 @@ export default function (state = initialState, action) {
 	switch (type) {
 		case USER_LOADED:
 			localStorage.setItem('userId', payload._id);
+			localStorage.setItem('name', payload.name);
 			return {
 				...state,
 				isAuthenticated: true,
@@ -41,6 +42,8 @@ export default function (state = initialState, action) {
 		case LOGOUT:
 		case AUTH_ERROR:
 			localStorage.removeItem('token');
+			localStorage.removeItem('userId');
+			localStorage.removeItem('name');
 			return {
 				...state,
 				token: null,
