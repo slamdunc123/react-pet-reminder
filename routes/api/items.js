@@ -43,10 +43,11 @@ router.get('/:userId', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	console.log('req.body', req.body);
-	const { name, desc } = req.body;
+	const { userId, name, desc } = req.body;
 	try {
 		// check if item naem already exists
 		let item = await Item.findOne({
+			userId: userId,
 			name: name,
 		});
 		if (item) {
