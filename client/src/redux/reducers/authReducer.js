@@ -20,6 +20,7 @@ export default function (state = initialState, action) {
 
 	switch (type) {
 		case USER_LOADED:
+			localStorage.setItem('userId', payload._id);
 			return {
 				...state,
 				isAuthenticated: true,
