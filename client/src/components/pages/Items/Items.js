@@ -17,8 +17,7 @@ const Items = () => {
 	const { token, isAuthenticated, user } = useSelector(
 		(state) => state.authReducer
 	);
-	const { _id } = user;
-	console.log(_id);
+
 	const items = useSelector((state) => state.itemsReducer.items); //gets from rootReducer which has itemsReducer imported
 	const loading = useSelector((state) => state.itemsReducer.loading); //gets from rootReducer which has itemsReducer imported
 	const dispatch = useDispatch();
@@ -33,10 +32,20 @@ const Items = () => {
 	const [modalTitle, setModalTitle] = useState('');
 	const [itemId, setItemId] = useState();
 
+	const getUserId = () => {
+		let userId;
+		if (user !== null) {
+			userId = user._id;
+		} else {
+			userId = localStorage.getItem('userId');
+		}
+		return userId;
+	};
+
 	const handleCreate = (formData) => {
 		setShowModal(false);
 		setIsEditing(false);
-		dispatch(createItem(formData, _id));
+		dispatch(createItem(formData, getUserId()));
 	};
 
 	const handleAdd = () => {
@@ -107,7 +116,7 @@ const Items = () => {
 
 	useEffect(() => {
 		dispatch(resetAlerts());
-		dispatch(getItems(user._id));
+		dispatch(getItems(getUserId()));
 		setUpdatedItem(false);
 	}, [updatedItem, dispatch]);
 
