@@ -1,4 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://admin:6QLK56OWsIXgDPs8@cluster0-mjhqv.mongodb.net/react_hooks_redux_mern?retryWrites=true&w=majority",
+	"mongoURI": "mongodb+srv://admin:6QLK56OWsIXgDPs8@cluster0-mjhqv.mongodb.net/react_pet_reminder?retryWrites=true&w=majority",
 	"jwtSecret": "mysecrettoken"
 }

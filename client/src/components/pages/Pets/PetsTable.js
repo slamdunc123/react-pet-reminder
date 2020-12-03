@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-const ItemsTable = ({ items, handleAdd, handleRemove, handleEdit }) => {
+const PetsTable = ({ pets, handleAdd, handleRemove, handleEdit }) => {
 	const alerts = useSelector((state) => state.alertReducer);
 	return (
 		<div className='table-responsive'>
@@ -22,7 +22,7 @@ const ItemsTable = ({ items, handleAdd, handleRemove, handleEdit }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{items.map((item) => {
+					{pets.map((item) => {
 						return (
 							<tr key={item._id}>
 								<td>{item.name}</td>
@@ -58,10 +58,10 @@ const ItemsTable = ({ items, handleAdd, handleRemove, handleEdit }) => {
 	);
 };
 
-ItemsTable.propTypes = {
-	items: PropTypes.arrayOf(PropTypes.object).isRequired,
+PetsTable.propTypes = {
+	pets: PropTypes.arrayOf(PropTypes.object).isRequired,
 	handleRemove: PropTypes.func.isRequired,
 	handleEdit: PropTypes.func.isRequired,
 };
 
-export default ItemsTable;
+export default PetsTable;

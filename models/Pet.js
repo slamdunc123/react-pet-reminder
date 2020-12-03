@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ItemSchema = new mongoose.Schema({
+const PetSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -15,4 +15,4 @@ const ItemSchema = new mongoose.Schema({
 	},
 });
 
-module.exports = Item = mongoose.model('item', ItemSchema);
+module.exports = Pet = mongoose.model('pet', PetSchema);

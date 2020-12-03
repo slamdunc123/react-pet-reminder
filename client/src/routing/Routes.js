@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Alert from '../components/partials/Alert/Alert';
-import Items from '../components/pages/Items/Items';
+import Pets from '../components/pages/Pets/Pets';
 import Home from '../components/pages/Home/Home';
 import Login from '../components/pages/Login/Login';
 import Register from '../components/pages/Register/Register';
@@ -13,11 +13,11 @@ const Routes = () => {
 		<>
 			<Alert />
 			<Switch>
-				<PrivateRoute component={Items} path='/items' exact />
+				<PrivateRoute component={Pets} path='/pets' exact />
 				{/* <PrivateRoute component={Login} path='/login' exact />
 				<PrivateRoute component={Register} path='/register' exact /> */}
-				{/* <Route path='/items'>
-					<Items />
+				{/* <Route path='/pets'>
+					<Pets />
 				</Route> */}
 				<Route exact path='/'>
 					<Home />

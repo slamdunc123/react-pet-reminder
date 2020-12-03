@@ -1,7 +1,7 @@
-export const GET_ITEMS = 'GET_ITEMS';
-export const CREATE_ITEM = 'CREATE_ITEM';
-export const DELETE_ITEM = 'DELETE_ITEM';
-export const UPDATE_ITEM = 'UPDATE_ITEM';
+export const GET_PETS = 'GET_PETS';
+export const CREATE_PET = 'CREATE_PET';
+export const DELETE_PET = 'DELETE_PET';
+export const UPDATE_PET = 'UPDATE_PET';
 
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';

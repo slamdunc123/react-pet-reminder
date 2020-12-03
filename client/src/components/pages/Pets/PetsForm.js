@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import { initialValues, validationSchema } from './itemsFormConfig';
-import './items.scss';
+import { initialValues, validationSchema } from './petsFormConfig';
+import './pets.scss';
 
-const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
-	const { name, desc } = editedItem;
+const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
+	const { name, desc } = editedPet;
 
 	const handleOnSubmit = (fields, { resetForm }) => {
-		isEditing ? handleUpdate(editedItem.id, fields) : handleCreate(fields);
+		isEditing ? handleUpdate(editedPet.id, fields) : handleCreate(fields);
 		resetForm(initialValues);
 	};
 
@@ -79,4 +79,4 @@ const ItemsForm = ({ isEditing, editedItem, handleCreate, handleUpdate }) => {
 	);
 };
 
-export default ItemsForm;
+export default PetsForm;

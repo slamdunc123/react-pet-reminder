@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../../partials/Spinner/Spinner';
-import ItemsTable from './ItemsTable';
-import ItemsForm from './ItemsForm';
+import PetsTable from './PetsTable';
+import PetsForm from './PetsForm';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	getItems,
-	createItem,
-	deleteItem,
-	updateItem,
-} from '../../../redux/actions/itemsActions';
+	getPets,
+	createPet,
+	deletePet,
+	updatePet,
+} from '../../../redux/actions/petActions';
 import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
 
-const Items = () => {
+const Pets = () => {
 	const { token, isAuthenticated, user } = useSelector(
 		(state) => state.authReducer
 	);
 
-	const items = useSelector((state) => state.itemsReducer.items); //gets from rootReducer which has itemsReducer imported
-	const loading = useSelector((state) => state.itemsReducer.loading); //gets from rootReducer which has itemsReducer imported
+	const pets = useSelector((state) => state.petReducer.pets); //gets from rootReducer which has petReducer imported
+	const loading = useSelector((state) => state.petReducer.loading); //gets from rootReducer which has petReducer imported
 	const dispatch = useDispatch();
 	const [isEditing, setIsEditing] = useState(false);
-	const [editedItem, setEditedItem] = useState({
+	const [editedPet, setEditedPet] = useState({
 		id: '',
 		name: '',
 		desc: '',
 	});
-	const [updatedItem, setUpdatedItem] = useState(false);
+	const [updatedPet, setUpdatedPet] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
-	const [itemId, setItemId] = useState();
+	const [petId, setPetId] = useState();
 
 	const getUserId = () => {
 		let userId;
@@ -45,7 +45,7 @@ const Items = () => {
 	const handleCreate = (formData) => {
 		setShowModal(false);
 		setIsEditing(false);
-		dispatch(createItem(formData, getUserId()));
+		dispatch(createPet(formData, getUserId()));
 	};
 
 	const handleAdd = () => {
@@ -58,8 +58,8 @@ const Items = () => {
 		console.log(formData);
 		setShowModal(false);
 		setIsEditing(false);
-		setUpdatedItem(true);
-		dispatch(updateItem(id, formData));
+		setUpdatedPet(true);
+		dispatch(updatePet(id, formData));
 	};
 
 	const handleEdit = (id, name, desc) => {
@@ -67,7 +67,7 @@ const Items = () => {
 		setShowModal(true);
 		setModalTitle('edit');
 		setIsEditing(true);
-		setEditedItem({
+		setEditedPet({
 			id: id,
 			name: name,
 			desc: desc,
@@ -76,11 +76,11 @@ const Items = () => {
 
 	const handleDelete = () => {
 		setShowModal(false);
-		dispatch(deleteItem(itemId));
+		dispatch(deletePet(petId));
 	};
 
 	const handleRemove = (id) => {
-		setItemId(id);
+		setPetId(id);
 		setShowModal(true);
 		setModalTitle('delete');
 	};
@@ -95,9 +95,9 @@ const Items = () => {
 				</button>
 			</>
 		) : (
-			<ItemsForm
+			<PetsForm
 				isEditing={isEditing}
-				editedItem={editedItem}
+				editedPet={editedPet}
 				handleCreate={handleCreate}
 				handleUpdate={handleUpdate}
 			/>
@@ -116,28 +116,28 @@ const Items = () => {
 
 	useEffect(() => {
 		dispatch(resetAlerts());
-		dispatch(getItems(getUserId()));
-		setUpdatedItem(false);
-	}, [updatedItem, dispatch]);
+		dispatch(getPets(getUserId()));
+		setUpdatedPet(false);
+	}, [updatedPet, dispatch]);
 
 	return (
 		<div className='container'>
 			{showModal ? getModal() : false}
-			<h3>Items</h3>
+			<h3>Pets</h3>
 			<div className='row'>
 				<div className='col-12'>
 					{loading ? (
 						<Spinner />
-					) : items.length > 0 ? (
-						<ItemsTable
-							items={items}
+					) : pets.length > 0 ? (
+						<PetsTable
+							pets={pets}
 							handleRemove={handleRemove}
 							handleEdit={handleEdit}
 							handleAdd={handleAdd}
 						/>
 					) : (
 						<>
-							<p>No items to display - please add one</p>
+							<p>No pets to display - please add one</p>
 
 							<button
 								className='btn btn-primary mr-2'
@@ -153,4 +153,4 @@ const Items = () => {
 	);
 };
 
-export default Items;
+export default Pets;
