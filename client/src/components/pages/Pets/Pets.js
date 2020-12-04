@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../../partials/Spinner/Spinner';
-import PetsTable from './PetsTable';
 import PetsForm from './PetsForm';
+import PetRecord from './PetRecord';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -14,10 +14,10 @@ import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
 
 const Pets = () => {
+	const alerts = useSelector((state) => state.alertReducer);
 	const { token, isAuthenticated, user } = useSelector(
 		(state) => state.authReducer
 	);
-
 	const pets = useSelector((state) => state.petReducer.pets); //gets from rootReducer which has petReducer imported
 	const loading = useSelector((state) => state.petReducer.loading); //gets from rootReducer which has petReducer imported
 	const dispatch = useDispatch();
@@ -55,7 +55,6 @@ const Pets = () => {
 	};
 
 	const handleUpdate = (id, formData) => {
-		console.log(formData);
 		setShowModal(false);
 		setIsEditing(false);
 		setUpdatedPet(true);
@@ -63,7 +62,6 @@ const Pets = () => {
 	};
 
 	const handleEdit = (id, name, desc) => {
-		console.log(id, name, desc);
 		setShowModal(true);
 		setModalTitle('edit');
 		setIsEditing(true);
@@ -124,30 +122,39 @@ const Pets = () => {
 		<div className='container'>
 			{showModal ? getModal() : false}
 			<h3>Pets</h3>
-			<div className='row'>
-				<div className='col-12'>
-					{loading ? (
-						<Spinner />
-					) : pets.length > 0 ? (
-						<PetsTable
-							pets={pets}
-							handleRemove={handleRemove}
-							handleEdit={handleEdit}
-							handleAdd={handleAdd}
-						/>
-					) : (
-						<>
-							<p>No pets to display - please add one</p>
+			<button
+				className='btn'
+				disabled={alerts.length > 0}
+				onClick={handleAdd}
+			>
+				<i className='fas fa-plus-circle fa-lg text-success'></i>
+			</button>
+			<div className='row mt-4'>
+				{loading ? (
+					<Spinner />
+				) : pets.length > 0 ? (
+					pets.map((pet) => (
+						<div key={pet._id} className='col-lg-4 col-sm-6 mb-4'>
+							<PetRecord
+								pet={pet}
+								handleRemove={handleRemove}
+								handleEdit={handleEdit}
+								handleAdd={handleAdd}
+							/>
+						</div>
+					))
+				) : (
+					<>
+						<p>No pets to display - please add one</p>
 
-							<button
-								className='btn btn-primary mr-2'
-								onClick={handleAdd}
-							>
-								Add
-							</button>
-						</>
-					)}
-				</div>
+						<button
+							className='btn btn-primary mr-2'
+							onClick={handleAdd}
+						>
+							Add
+						</button>
+					</>
+				)}
 			</div>
 		</div>
 	);

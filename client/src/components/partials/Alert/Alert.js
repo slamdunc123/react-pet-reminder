@@ -9,7 +9,6 @@ const Alert = () => {
 		dispatch(resetAlerts());
 	};
 
-	console.log('Alert -> alerts', alerts);
 	return (
 		<>
 			{
