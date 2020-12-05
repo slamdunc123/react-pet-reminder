@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Spinner from '../../partials/Spinner/Spinner';
 import PetsForm from './PetsForm';
 import PetRecord from './PetRecord';
+import PetsTable from './PetsTable';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -144,6 +145,12 @@ const Pets = () => {
 						</div>
 					))
 				) : (
+					// <PetsTable
+					// 	pets={pets}
+					// 	handleRemove={handleRemove}
+					// 	handleEdit={handleEdit}
+					// 	handleAdd={handleAdd}
+					// />
 					<>
 						<p>No pets to display - please add one</p>
 

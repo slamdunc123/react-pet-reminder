@@ -58,6 +58,13 @@ const PetProfile = () => {
 	const handleDelete = () => {
 		setShowModal(false);
 		dispatch(deletePet(petId));
+		history.push('/pets');
+	};
+
+	const handleRemove = (id) => {
+		setPetId(id);
+		setShowModal(true);
+		setModalTitle('delete');
 	};
 
 	const getModalBody = () => {
@@ -89,7 +96,7 @@ const PetProfile = () => {
 	};
 
 	useEffect(() => {
-		dispatch(resetAlerts());
+		// dispatch(resetAlerts());
 		dispatch(getPets(getUserId()));
 		setUpdatedPet(false);
 	}, [updatedPet, dispatch]);
@@ -113,13 +120,13 @@ const PetProfile = () => {
 						>
 							<i className='fas fa-pencil-alt text-warning'></i>
 						</button>
-						{/* <button
+						<button
 							onClick={() => handleRemove(_id)}
 							className='btn'
 							disabled={alerts.length > 0}
 						>
 							<i className='fas fa-trash text-danger'></i>
-						</button> */}
+						</button>
 					</div>
 				</div>
 			</div>
