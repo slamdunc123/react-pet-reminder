@@ -2,17 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-const PetsTable = ({ pets, handleAdd, handleRemove, handleEdit }) => {
+const PetsTable = ({ pets, handleRemove, handleEdit }) => {
 	const alerts = useSelector((state) => state.alertReducer);
 	return (
 		<div className='table-responsive'>
-			<button
-				className='btn'
-				disabled={alerts.length > 0}
-				onClick={handleAdd}
-			>
-				<i className='fas fa-plus-circle fa-lg text-success'></i>
-			</button>
 			<table className='table'>
 				<thead>
 					<tr>

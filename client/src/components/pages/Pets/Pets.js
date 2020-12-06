@@ -32,6 +32,7 @@ const Pets = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
 	const [petId, setPetId] = useState();
+	const [display, setDisplay] = useState('records');
 
 	const getUserId = () => {
 		let userId;
@@ -113,6 +114,43 @@ const Pets = () => {
 		);
 	};
 
+	const handleDisplay = (e) => {
+		const { value } = e.target;
+		setDisplay(value);
+
+		console.log(e.target.value);
+	};
+
+	const getPetRecordsDisplay = () => {
+		return pets.map((pet) => (
+			<div key={pet._id} className='col-lg-4 col-sm-6 mb-4'>
+				<PetRecord
+					pet={pet}
+					handleRemove={handleRemove}
+					handleEdit={handleEdit}
+					handleAdd={handleAdd}
+				/>
+			</div>
+		));
+	};
+
+	const getPetTableDisplay = () => (
+		<PetsTable
+			pets={pets}
+			handleRemove={handleRemove}
+			handleEdit={handleEdit}
+			handleAdd={handleAdd}
+		/>
+	);
+
+	const getDisplay = () => {
+		if (display === 'records') {
+			return getPetRecordsDisplay();
+		} else {
+			return getPetTableDisplay();
+		}
+	};
+
 	useEffect(() => {
 		dispatch(resetAlerts());
 		dispatch(getPets(getUserId()));
@@ -130,37 +168,41 @@ const Pets = () => {
 			>
 				<i className='fas fa-plus-circle fa-lg text-success'></i>
 			</button>
+			<div className='custom-control custom-radio custom-control-inline'>
+				<input
+					type='radio'
+					id='rd_1'
+					name='rd'
+					className='custom-control-input'
+					value='records'
+					onClick={handleDisplay}
+					checked={display === 'records'}
+				/>
+				<label className='custom-control-label' htmlFor='rd_1'>
+					Records
+				</label>
+			</div>
+			<div className='custom-control custom-radio custom-control-inline'>
+				<input
+					type='radio'
+					id='rd_2'
+					name='rd'
+					className='custom-control-input'
+					value='table'
+					onClick={handleDisplay}
+					checked={display === 'table'}
+				/>
+				<label className='custom-control-label' htmlFor='rd_2'>
+					Table
+				</label>
+			</div>
 			<div className='row mt-4'>
 				{loading ? (
 					<Spinner />
 				) : pets.length > 0 ? (
-					pets.map((pet) => (
-						<div key={pet._id} className='col-lg-4 col-sm-6 mb-4'>
-							<PetRecord
-								pet={pet}
-								handleRemove={handleRemove}
-								handleEdit={handleEdit}
-								handleAdd={handleAdd}
-							/>
-						</div>
-					))
+					getDisplay()
 				) : (
-					// <PetsTable
-					// 	pets={pets}
-					// 	handleRemove={handleRemove}
-					// 	handleEdit={handleEdit}
-					// 	handleAdd={handleAdd}
-					// />
-					<>
-						<p>No pets to display - please add one</p>
-
-						<button
-							className='btn btn-primary mr-2'
-							onClick={handleAdd}
-						>
-							Add
-						</button>
-					</>
+					<p>No pets to display - please add one</p>
 				)}
 			</div>
 		</div>

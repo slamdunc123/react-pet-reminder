@@ -12,7 +12,7 @@ import { resetAlerts } from '../../../redux/actions/alertActions';
 
 const PetProfile = () => {
 	const dispatch = useDispatch();
-	const pets = useSelector((state) => state.petReducer.pets); //TODO: need to fix refesh issue where pets reverts back to an empty array
+	const pets = useSelector((state) => state.petReducer.pets);
 	const alerts = useSelector((state) => state.alertReducer);
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
@@ -29,8 +29,6 @@ const PetProfile = () => {
 	const { location: pathname } = history;
 	const pathUrl = pathname.pathname;
 	const pathUrlLastItem = pathUrl.substring(pathUrl.lastIndexOf('/') + 1);
-	const pet = pets.find((pet) => pet._id === pathUrlLastItem);
-	const { _id, name, desc } = pet;
 
 	const getUserId = () => {
 		const userId = localStorage.getItem('userId');
@@ -95,8 +93,14 @@ const PetProfile = () => {
 		);
 	};
 
+	//TODO: not clear why this is fixing the refresh issue on a selected pet profile page
+	let pet;
+	if (pets !== []) {
+		pet = pets.find((pet) => pet._id === pathUrlLastItem);
+	}
+
 	useEffect(() => {
-		// dispatch(resetAlerts());
+		dispatch(resetAlerts());
 		dispatch(getPets(getUserId()));
 		setUpdatedPet(false);
 	}, [updatedPet, dispatch]);
@@ -105,31 +109,37 @@ const PetProfile = () => {
 		<>
 			<div>Pet Profile</div>
 			{showModal ? getModal() : false}
-			<div className='card'>
-				<div className='text-center'>
-					<i className='fas fa-paw fa-3x text-primary'></i>
-				</div>
-				<div className='card-body'>
-					<h5 className='card-title text-center'>{name}</h5>
-					<p className='card-text'>{desc}</p>
-					<div className='row justify-content-center'>
-						<button
-							onClick={() => handleEdit(_id, name, desc)}
-							className='btn'
-							disabled={alerts.length > 0}
-						>
-							<i className='fas fa-pencil-alt text-warning'></i>
-						</button>
-						<button
-							onClick={() => handleRemove(_id)}
-							className='btn'
-							disabled={alerts.length > 0}
-						>
-							<i className='fas fa-trash text-danger'></i>
-						</button>
+			{pet !== undefined ? (
+				<div className='card'>
+					<div className='text-center'>
+						<i className='fas fa-paw fa-3x text-primary'></i>
+					</div>
+					<div className='card-body'>
+						<h5 className='card-title text-center'>{pet.name}</h5>
+						<p className='card-text'>{pet.desc}</p>
+						<div className='row justify-content-center'>
+							<button
+								onClick={() =>
+									handleEdit(pet._id, pet.name, pet.desc)
+								}
+								className='btn'
+								disabled={alerts.length > 0}
+							>
+								<i className='fas fa-pencil-alt text-warning'></i>
+							</button>
+							<button
+								onClick={() => handleRemove(pet._id)}
+								className='btn'
+								disabled={alerts.length > 0}
+							>
+								<i className='fas fa-trash text-danger'></i>
+							</button>
+						</div>
 					</div>
 				</div>
-			</div>
+			) : (
+				false
+			)}
 		</>
 	);
 };

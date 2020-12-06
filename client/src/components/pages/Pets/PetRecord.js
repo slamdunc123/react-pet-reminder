@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const PetRecord = ({ pet, handleEdit, handleRemove }) => {
+const PetRecord = ({ pet }) => {
 	const alerts = useSelector((state) => state.alertReducer);
 	const { _id, name, desc } = pet;
 
