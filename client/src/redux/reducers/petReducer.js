@@ -40,6 +40,8 @@ export default function (state = initialState, action) {
 				if (pet._id === payload.id) {
 					pet.name = payload.name;
 					pet.desc = payload.desc;
+					pet.age = payload.age;
+					pet.dob = payload.dob;
 					return {
 						...state,
 						pets: [...state.pets, payload],

@@ -42,7 +42,7 @@ const PetProfile = () => {
 		dispatch(updatePet(id, formData));
 	};
 
-	const handleEdit = (id, name, desc) => {
+	const handleEdit = (id, name, desc, age, dob) => {
 		setShowModal(true);
 		setModalTitle('edit');
 		setIsEditing(true);
@@ -50,6 +50,8 @@ const PetProfile = () => {
 			id: id,
 			name: name,
 			desc: desc,
+			age: age,
+			dob: dob,
 		});
 	};
 
@@ -120,7 +122,13 @@ const PetProfile = () => {
 						<div className='row justify-content-center'>
 							<button
 								onClick={() =>
-									handleEdit(pet._id, pet.name, pet.desc)
+									handleEdit(
+										pet._id,
+										pet.name,
+										pet.desc,
+										pet.age,
+										pet.dob
+									)
 								}
 								className='btn'
 								disabled={alerts.length > 0}

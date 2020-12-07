@@ -26,7 +26,9 @@ const PetsTable = ({ pets, handleRemove, handleEdit }) => {
 											handleEdit(
 												item._id,
 												item.name,
-												item.desc
+												item.desc,
+												item.age,
+												item.dob
 											)
 										}
 										className='btn'

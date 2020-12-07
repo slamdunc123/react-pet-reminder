@@ -27,6 +27,8 @@ const Pets = () => {
 		id: '',
 		name: '',
 		desc: '',
+		dob: '',
+		age: '',
 	});
 	const [updatedPet, setUpdatedPet] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -63,7 +65,7 @@ const Pets = () => {
 		dispatch(updatePet(id, formData));
 	};
 
-	const handleEdit = (id, name, desc) => {
+	const handleEdit = (id, name, desc, age, dob) => {
 		setShowModal(true);
 		setModalTitle('edit');
 		setIsEditing(true);
@@ -71,6 +73,8 @@ const Pets = () => {
 			id: id,
 			name: name,
 			desc: desc,
+			age: age,
+			dob: dob,
 		});
 	};
 

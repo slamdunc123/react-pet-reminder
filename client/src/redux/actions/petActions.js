@@ -72,6 +72,7 @@ export const updatePet = (id, formData) => async (dispatch) => {
 		},
 	};
 	const body = formData;
+	console.log(body);
 	try {
 		const res = await axios.put(`/api/pets/${id}`, body, config); // pass edited pet id, new formData, headers
 		dispatch({
