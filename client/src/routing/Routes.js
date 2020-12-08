@@ -5,6 +5,7 @@ import Pets from '../components/pages/Pets/Pets';
 import Home from '../components/pages/Home/Home';
 import Login from '../components/pages/Login/Login';
 import Register from '../components/pages/Register/Register';
+import PetProfile from '../components/pages/Pets/PetProfile';
 import NotFound from '../components/pages/NotFound/NotFound';
 import PrivateRoute from './PrivateRoute';
 
@@ -14,6 +15,7 @@ const Routes = () => {
 			<Alert />
 			<Switch>
 				<PrivateRoute component={Pets} path='/pets' exact />
+				<PrivateRoute component={PetProfile} path='/pets/:id' exact />
 				{/* <PrivateRoute component={Login} path='/login' exact />
 				<PrivateRoute component={Register} path='/register' exact /> */}
 				{/* <Route path='/pets'>

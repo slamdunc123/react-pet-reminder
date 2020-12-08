@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { initialValues, validationSchema } from './petsFormConfig';
+import moment from 'moment';
 import './pets.scss';
 
 const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
-	const { name, desc } = editedPet;
+	const { name, desc, dob, age } = editedPet;
+
+	console.log(name, desc, dob, age);
 
 	const handleOnSubmit = (fields, { resetForm }) => {
 		isEditing ? handleUpdate(editedPet.id, fields) : handleCreate(fields);
@@ -19,12 +22,15 @@ const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 				enableReinitialize
 				validateOnChange={false}
 				validateOnBlur={false}
-				initialValues={isEditing ? { name, desc } : initialValues}
+				initialValues={
+					isEditing ? { name, desc, age, dob } : initialValues
+				}
 				validationSchema={validationSchema}
 				onSubmit={handleOnSubmit}
 			>
 				{({ values, errors, status, touched }) => (
 					<Form>
+						{console.log(values)}
 						<div className='form-group'>
 							<label htmlFor='name'>Name</label>
 							<Field
@@ -59,6 +65,44 @@ const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 							/>
 							<ErrorMessage
 								name='desc'
+								component='div'
+								className='invalid-feedback'
+							/>
+						</div>
+						<div className='form-group'>
+							<label htmlFor='age'>Age</label>
+							<Field
+								value={values.age}
+								name='age'
+								type='text'
+								className={
+									'form-control' +
+									(errors.age && touched.age
+										? ' is-invalid'
+										: '')
+								}
+							/>
+							<ErrorMessage
+								name='age'
+								component='div'
+								className='invalid-feedback'
+							/>
+						</div>
+						<div className='form-group'>
+							<label htmlFor='dob'>D-O-B</label>
+							<Field
+								value={moment(values.dob).format('yyyy-MM-DD')}
+								name='dob'
+								type='date'
+								className={
+									'form-control' +
+									(errors.dob && touched.dob
+										? ' is-invalid'
+										: '')
+								}
+							/>
+							<ErrorMessage
+								name='dob'
 								component='div'
 								className='invalid-feedback'
 							/>

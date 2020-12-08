@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Spinner from '../../partials/Spinner/Spinner';
-import PetsTable from './PetsTable';
 import PetsForm from './PetsForm';
+import PetRecord from './PetRecord';
+import PetsTable from './PetsTable';
 
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -14,10 +15,10 @@ import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
 
 const Pets = () => {
+	const alerts = useSelector((state) => state.alertReducer);
 	const { token, isAuthenticated, user } = useSelector(
 		(state) => state.authReducer
 	);
-
 	const pets = useSelector((state) => state.petReducer.pets); //gets from rootReducer which has petReducer imported
 	const loading = useSelector((state) => state.petReducer.loading); //gets from rootReducer which has petReducer imported
 	const dispatch = useDispatch();
@@ -26,11 +27,14 @@ const Pets = () => {
 		id: '',
 		name: '',
 		desc: '',
+		dob: '',
+		age: '',
 	});
 	const [updatedPet, setUpdatedPet] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
 	const [petId, setPetId] = useState();
+	const [display, setDisplay] = useState('records');
 
 	const getUserId = () => {
 		let userId;
@@ -55,15 +59,13 @@ const Pets = () => {
 	};
 
 	const handleUpdate = (id, formData) => {
-		console.log(formData);
 		setShowModal(false);
 		setIsEditing(false);
 		setUpdatedPet(true);
 		dispatch(updatePet(id, formData));
 	};
 
-	const handleEdit = (id, name, desc) => {
-		console.log(id, name, desc);
+	const handleEdit = (id, name, desc, age, dob) => {
 		setShowModal(true);
 		setModalTitle('edit');
 		setIsEditing(true);
@@ -71,6 +73,8 @@ const Pets = () => {
 			id: id,
 			name: name,
 			desc: desc,
+			age: age,
+			dob: dob,
 		});
 	};
 
@@ -114,6 +118,43 @@ const Pets = () => {
 		);
 	};
 
+	const handleDisplay = (e) => {
+		const { value } = e.target;
+		setDisplay(value);
+
+		console.log(e.target.value);
+	};
+
+	const getPetRecordsDisplay = () => {
+		return pets.map((pet) => (
+			<div key={pet._id} className='col-lg-4 col-sm-6 mb-4'>
+				<PetRecord
+					pet={pet}
+					handleRemove={handleRemove}
+					handleEdit={handleEdit}
+					handleAdd={handleAdd}
+				/>
+			</div>
+		));
+	};
+
+	const getPetTableDisplay = () => (
+		<PetsTable
+			pets={pets}
+			handleRemove={handleRemove}
+			handleEdit={handleEdit}
+			handleAdd={handleAdd}
+		/>
+	);
+
+	const getDisplay = () => {
+		if (display === 'records') {
+			return getPetRecordsDisplay();
+		} else {
+			return getPetTableDisplay();
+		}
+	};
+
 	useEffect(() => {
 		dispatch(resetAlerts());
 		dispatch(getPets(getUserId()));
@@ -124,30 +165,49 @@ const Pets = () => {
 		<div className='container'>
 			{showModal ? getModal() : false}
 			<h3>Pets</h3>
-			<div className='row'>
-				<div className='col-12'>
-					{loading ? (
-						<Spinner />
-					) : pets.length > 0 ? (
-						<PetsTable
-							pets={pets}
-							handleRemove={handleRemove}
-							handleEdit={handleEdit}
-							handleAdd={handleAdd}
-						/>
-					) : (
-						<>
-							<p>No pets to display - please add one</p>
-
-							<button
-								className='btn btn-primary mr-2'
-								onClick={handleAdd}
-							>
-								Add
-							</button>
-						</>
-					)}
-				</div>
+			<button
+				className='btn'
+				disabled={alerts.length > 0}
+				onClick={handleAdd}
+			>
+				<i className='fas fa-plus-circle fa-lg text-success'></i>
+			</button>
+			<div className='custom-control custom-radio custom-control-inline'>
+				<input
+					type='radio'
+					id='rd_1'
+					name='rd'
+					className='custom-control-input'
+					value='records'
+					onClick={handleDisplay}
+					checked={display === 'records'}
+				/>
+				<label className='custom-control-label' htmlFor='rd_1'>
+					Records
+				</label>
+			</div>
+			<div className='custom-control custom-radio custom-control-inline'>
+				<input
+					type='radio'
+					id='rd_2'
+					name='rd'
+					className='custom-control-input'
+					value='table'
+					onClick={handleDisplay}
+					checked={display === 'table'}
+				/>
+				<label className='custom-control-label' htmlFor='rd_2'>
+					Table
+				</label>
+			</div>
+			<div className='row mt-4'>
+				{loading ? (
+					<Spinner />
+				) : pets.length > 0 ? (
+					getDisplay()
+				) : (
+					<p>No pets to display - please add one</p>
+				)}
 			</div>
 		</div>
 	);

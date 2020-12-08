@@ -9,6 +9,14 @@ const PetSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	age: {
+		type: String,
+		required: true,
+	},
+	dob: {
+		type: Date,
+		required: true,
+	},
 	userId: {
 		type: String,
 		required: true,

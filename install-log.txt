@@ -16,6 +16,7 @@ client
 - yup
 - storybook
 - uuid
+- moment
 
 add this line to client >> package.json
 "proxy": "http://localhost:5000"

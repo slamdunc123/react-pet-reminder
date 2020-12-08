@@ -59,6 +59,8 @@ router.post('/', async (req, res) => {
 		const newPet = new Pet({
 			name: req.body.name,
 			desc: req.body.desc,
+			age: req.body.age,
+			dob: req.body.dob,
 			userId: req.body.userId,
 		});
 		console.log('newPet', newPet);
