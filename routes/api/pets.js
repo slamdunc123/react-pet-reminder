@@ -61,6 +61,7 @@ router.post('/', async (req, res) => {
 			desc: req.body.desc,
 			age: req.body.age,
 			dob: req.body.dob,
+			imageFile: req.body.imageFile,
 			userId: req.body.userId,
 		});
 		console.log('newPet', newPet);
@@ -116,7 +117,7 @@ router.put('/:id', async (req, res) => {
 			});
 		}
 		pet = await Pet.findByIdAndUpdate(req.params.id, req.body);
-		res.json({
+		await res.json({
 			msg: 'Item updated successfully.',
 			pet: pet,
 		});

@@ -4,12 +4,22 @@ import { useSelector } from 'react-redux';
 
 const PetRecord = ({ pet }) => {
 	const alerts = useSelector((state) => state.alertReducer);
-	const { _id, name, desc } = pet;
+	const { _id, name, desc, age, dob, imageFile } = pet;
 
 	return (
 		<div className='card'>
 			<div className='text-center'>
-				<i className='fas fa-paw fa-3x text-primary'></i>
+				{imageFile ? (
+					<img
+						src={imageFile}
+						alt=''
+						class='rounded-circle'
+						width='100'
+						height='100'
+					/>
+				) : (
+					<i className='fas fa-paw fa-5x text-primary'></i>
+				)}
 			</div>
 			<div className='card-body'>
 				<h5 className='card-title text-center'>{name}</h5>

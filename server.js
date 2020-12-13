@@ -8,7 +8,11 @@ const app = express();
 conn();
 
 // init middleware (inc bodyParser which allows data to be retrieved in req.body eg in user.js)
-app.use(express.json({ extended: false }));
+// app.use(express.json({ extended: false }));
+app.use(express.json({ limit: '50mb', extended: true }));
+app.use(
+	express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 })
+);
 
 // test route - http://localhost:5000
 // app.get('/', (req, res) => res.send('test route successful'));

@@ -2,15 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { initialValues, validationSchema } from './petsFormConfig';
 import moment from 'moment';
+import FileBase from 'react-file-base64';
 import './pets.scss';
 
 const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 	const { name, desc, dob, age } = editedPet;
+	const [imageFile, setImageFile] = useState();
 
 	console.log(name, desc, dob, age);
 
+	const getFormData = (fields) => {
+		return { ...fields, imageFile };
+	};
+
 	const handleOnSubmit = (fields, { resetForm }) => {
-		isEditing ? handleUpdate(editedPet.id, fields) : handleCreate(fields);
+		const formData = getFormData(fields);
+		console.log(formData);
+		isEditing
+			? handleUpdate(editedPet.id, formData)
+			: handleCreate(formData);
 		resetForm(initialValues);
 	};
 
@@ -106,6 +116,34 @@ const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 								component='div'
 								className='invalid-feedback'
 							/>
+						</div>
+						<div className='form-group'>
+							{/* <label htmlFor='imgFile'>D-O-B</label> */}
+							{/* <Field
+								value={moment(values.dob).format('yyyy-MM-DD')}
+								name='imgFile'
+								type='file'
+								className={
+									'form-control' +
+									(errors.imgFile && touched.imgFile
+										? ' is-invalid'
+										: '')
+								}
+							/>
+							<ErrorMessage
+								name='imgFile'
+								component='div'
+								className='invalid-feedback'
+							/> */}
+							<div className='form-control'>
+								<FileBase
+									type='file'
+									multiple={false}
+									onDone={({ base64 }) =>
+										setImageFile(base64)
+									}
+								/>
+							</div>
 						</div>
 						<hr />
 						<div className='form-group'>

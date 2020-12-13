@@ -17,6 +17,9 @@ const PetSchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 	},
+	imageFile: {
+		type: String,
+	},
 	userId: {
 		type: String,
 		required: true,

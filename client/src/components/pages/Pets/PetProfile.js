@@ -114,7 +114,17 @@ const PetProfile = () => {
 			{pet !== undefined ? (
 				<div className='card'>
 					<div className='text-center'>
-						<i className='fas fa-paw fa-3x text-primary'></i>
+						{pet.imageFile ? (
+							<img
+								src={pet.imageFile}
+								alt=''
+								class='rounded-circle'
+								width='100'
+								height='100'
+							/>
+						) : (
+							<i className='fas fa-paw fa-4x text-primary'></i>
+						)}
 					</div>
 					<div className='card-body'>
 						<h5 className='card-title text-center'>{pet.name}</h5>
