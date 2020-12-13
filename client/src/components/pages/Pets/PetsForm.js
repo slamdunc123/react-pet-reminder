@@ -8,20 +8,40 @@ import './pets.scss';
 const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 	const { name, desc, dob, age } = editedPet;
 	const [imageFile, setImageFile] = useState();
+	const [isImageFileSize, setIsImageFileSize] = useState(true);
 
 	console.log(name, desc, dob, age);
 
+	// const getImageFileValidation = () => {
+	//     if(imageFile.name.match(/\.(jpg|jpeg|png|gif)$/)){
+	//         alert('image file wrong format')
+	//     }
+	// }
+
 	const getFormData = (fields) => {
-		return { ...fields, imageFile };
+		if (imageFile) {
+			return { ...fields, imageFile };
+		} else {
+			return { ...fields };
+		}
 	};
 
 	const handleOnSubmit = (fields, { resetForm }) => {
-		const formData = getFormData(fields);
-		console.log(formData);
-		isEditing
-			? handleUpdate(editedPet.id, formData)
-			: handleCreate(formData);
-		resetForm(initialValues);
+		// console.log(imageFile.length);
+		// console.log(((imageFile.length / 4) * 3) / 1064); // b64Length to KB
+		// const b64Length = ((200 * 4) / 3) * 1064; // KB to b64Length
+		// console.log(b64Length);
+
+		if (imageFile && imageFile.length > 283733) {
+			setIsImageFileSize(false);
+		} else {
+			const formData = getFormData(fields);
+			console.log(formData);
+			isEditing
+				? handleUpdate(editedPet.id, formData)
+				: handleCreate(formData);
+			resetForm(initialValues);
+		}
 	};
 
 	return (
@@ -118,23 +138,6 @@ const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 							/>
 						</div>
 						<div className='form-group'>
-							{/* <label htmlFor='imgFile'>D-O-B</label> */}
-							{/* <Field
-								value={moment(values.dob).format('yyyy-MM-DD')}
-								name='imgFile'
-								type='file'
-								className={
-									'form-control' +
-									(errors.imgFile && touched.imgFile
-										? ' is-invalid'
-										: '')
-								}
-							/>
-							<ErrorMessage
-								name='imgFile'
-								component='div'
-								className='invalid-feedback'
-							/> */}
 							<div className='form-control'>
 								<FileBase
 									type='file'
@@ -144,6 +147,14 @@ const PetsForm = ({ isEditing, editedPet, handleCreate, handleUpdate }) => {
 									}
 								/>
 							</div>
+							{!isImageFileSize ? (
+								<p
+									className='text-danger'
+									style={{ fontSize: '.8rem' }}
+								>
+									Max file size is 200KB
+								</p>
+							) : null}
 						</div>
 						<hr />
 						<div className='form-group'>
