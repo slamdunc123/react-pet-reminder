@@ -107,7 +107,6 @@ const PetProfile = () => {
 		dispatch(resetAlerts());
 		dispatch(getPets(getUserId()));
 		setUpdatedPet(false);
-		localStorage.setItem('petId', pathUrlLastItem);
 	}, [updatedPet, dispatch]);
 
 	return (
@@ -156,10 +155,15 @@ const PetProfile = () => {
 								<i className='fas fa-trash text-danger'></i>
 							</button>
 							<Link
-								className='badge badge-primary'
-								to={`/reminders`}
+								// className='badge badge-primary'
+								className='btn'
+								title='reminders'
+								to={{
+									pathname: '/reminders',
+									petId: pathUrlLastItem,
+								}}
 							>
-								Reminders
+								<i className='fas fa-clock text-info'></i>
 							</Link>
 						</div>
 					</div>

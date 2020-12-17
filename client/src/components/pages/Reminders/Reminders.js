@@ -8,7 +8,8 @@ import {
 	// updatePet,
 } from '../../../redux/actions/reminderActions';
 
-const Reminders = () => {
+const Reminders = ({ location }) => {
+	console.log(location);
 	const { token, isAuthenticated, user } = useSelector(
 		(state) => state.authReducer
 	);
@@ -30,7 +31,7 @@ const Reminders = () => {
 	// console.log(user._id);
 
 	const getPetId = () => {
-		return localStorage.getItem('petId');
+		return location.petId;
 	};
 
 	useEffect(() => {
@@ -38,11 +39,55 @@ const Reminders = () => {
 	}, []);
 
 	return (
-		<div>
-			{console.log(reminders)}
-			{reminders.length > 0
-				? reminders.map((item) => <h5>{item.name}</h5>)
-				: 'No reminders for this pet'}
+		<div className='container'>
+			<div className='table-responsive'>
+				<table className='table'>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Date</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{console.log(reminders)}
+						{reminders.length > 0
+							? reminders.map((item) => {
+									return (
+										<tr key={item._id}>
+											<td>{item.name}</td>
+											<td>{item.date}</td>
+											<td>
+												<button
+													// onClick={() =>
+													//     handleEdit(
+													//         item._id,
+													//         item.name,
+													//         item.desc,
+													//         item.age,
+													//         item.dob
+													//     )
+													// }
+													className='btn'
+													// disabled={alerts.length > 0}
+												>
+													<i className='fas fa-pencil-alt text-warning'></i>
+												</button>
+												<button
+													// onClick={() => handleRemove(item._id)}
+													className='btn'
+													// disabled={alerts.length > 0}
+												>
+													<i className='fas fa-trash text-danger'></i>
+												</button>
+											</td>
+										</tr>
+									);
+							  })
+							: 'No reminders for this pet'}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	);
 };
