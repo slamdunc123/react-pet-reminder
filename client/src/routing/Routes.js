@@ -17,6 +17,7 @@ const Routes = () => {
 			<Switch>
 				<PrivateRoute component={Pets} path='/pets' exact />
 				<PrivateRoute component={PetProfile} path='/pets/:id' exact />
+				<PrivateRoute component={Reminders} path='/reminders/' exact />
 				{/* <PrivateRoute component={Login} path='/login' exact />
 				<PrivateRoute component={Register} path='/register' exact /> */}
 				{/* <Route path='/pets'>
@@ -30,9 +31,6 @@ const Routes = () => {
 				</Route>
 				<Route path='/register'>
 					<Register />
-				</Route>
-				<Route path='/reminders'>
-					<Reminders />
 				</Route>
 				<Route component={NotFound} />
 			</Switch>

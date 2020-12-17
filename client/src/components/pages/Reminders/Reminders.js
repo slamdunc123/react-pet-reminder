@@ -1,34 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {
+	getReminders,
+	// createPet,
+	// deletePet,
+	// updatePet,
+} from '../../../redux/actions/reminderActions';
 
 const Reminders = () => {
-	const [reminders, setReminders] = useState([]);
-	// get pets
-	// const getPets = () => async (dispatch) => {
-	const getReminders = async () => {
-		try {
-			const res = await axios.get(`/api/reminders`);
-			console.log(res);
-			setReminders(res.data);
+	const { token, isAuthenticated, user } = useSelector(
+		(state) => state.authReducer
+	);
+	const reminders = useSelector((state) => state.reminderReducer.reminders); //gets from rootReducer which has reminderReducer imported
+	const loading = useSelector((state) => state.reminderReducer.loading); //gets from rootReducer which has reminderReducer imported
 
-			// dispatch({
-			// 	type: GET_PETS,
-			// 	payload: res.data,
-			// });
-		} catch (err) {
-			console.error(err.error);
+	const dispatch = useDispatch();
+
+	const getUserId = () => {
+		console.log(user);
+		let userId;
+		if (user !== null) {
+			userId = user._id;
+		} else {
+			userId = localStorage.getItem('userId');
 		}
+		return userId;
+	};
+	// console.log(user._id);
+
+	const getPetId = () => {
+		return localStorage.getItem('petId');
 	};
 
 	useEffect(() => {
-		getReminders();
+		dispatch(getReminders(getUserId(), getPetId()));
 	}, []);
 
 	return (
 		<div>
-			{reminders.map((item) => (
-				<h5>{item.name}</h5>
-			))}
+			{console.log(reminders)}
+			{reminders.length > 0
+				? reminders.map((item) => <h5>{item.name}</h5>)
+				: 'No reminders for this pet'}
 		</div>
 	);
 };

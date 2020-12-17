@@ -43,6 +43,13 @@ const NavMenu = () => {
 					</Link>
 					<Link
 						className='nav-item nav-link'
+						to='/reminders'
+						onClick={handleOnClick}
+					>
+						Reminders
+					</Link>
+					<Link
+						className='nav-item nav-link'
 						to='/'
 						onClick={handleLogout}
 					>

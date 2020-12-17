@@ -11,9 +11,42 @@ const Reminder = require('../../models/Reminder');
 // @desc    Get all reminders
 // @access  Public
 
-router.get('/', async (req, res) => {
+// router.get('/', async (req, res) => {
+// 	try {
+// 		const reminders = await Reminder.find();
+// 		res.json(reminders);
+// 	} catch (err) {
+// 		console.error(err.message);
+// 		res.status(500).send('Server error');
+// 	}
+// });
+
+// @router  GET api/reminders - http://localhost:5000/api/reminders/1
+// @desc    Get reminders by userId
+// @access  Public
+
+// router.get('/:userId', async (req, res) => {
+// 	console.log(req.params);
+// 	try {
+// 		const reminders = await Reminder.find({ userId: req.params.userId });
+// 		res.json(reminders);
+// 	} catch (err) {
+// 		console.error(err.message);
+// 		res.status(500).send('Server error');
+// 	}
+// });
+
+// @router  GET api/reminders - http://localhost:5000/api/reminders/1?petId=2
+// @desc    Get reminders by userId and filter by petId
+// @access  Public
+
+router.get('/:userId', async (req, res) => {
+	console.log(req.params);
+	console.log(req.query);
 	try {
-		const reminders = await Reminder.find();
+		const reminders = await Reminder.find({ userId: req.params.userId })
+			.where('petId')
+			.equals(req.query.petId);
 		res.json(reminders);
 	} catch (err) {
 		console.error(err.message);
@@ -42,6 +75,8 @@ router.post('/', async (req, res) => {
 		const newReminder = new Reminder({
 			name: req.body.name,
 			date: req.body.date,
+			userId: req.body.userId,
+			petId: req.body.petId,
 		});
 		console.log('newReminder', newReminder);
 		// save item to database

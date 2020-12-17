@@ -9,6 +9,14 @@ const ReminderSchema = new mongoose.Schema({
 		type: Date,
 		required: true,
 	},
+	userId: {
+		type: String,
+		required: true,
+	},
+	petId: {
+		type: String,
+		required: true,
+	},
 });
 
 module.exports = Reminder = mongoose.model('reminder', ReminderSchema);
