@@ -6,6 +6,7 @@ import Home from '../components/pages/Home/Home';
 import Login from '../components/pages/Login/Login';
 import Register from '../components/pages/Register/Register';
 import PetProfile from '../components/pages/Pets/PetProfile';
+import Reminders from '../components/pages/Reminders/Reminders';
 import NotFound from '../components/pages/NotFound/NotFound';
 import PrivateRoute from './PrivateRoute';
 
@@ -29,6 +30,9 @@ const Routes = () => {
 				</Route>
 				<Route path='/register'>
 					<Register />
+				</Route>
+				<Route path='/reminders'>
+					<Reminders />
 				</Route>
 				<Route component={NotFound} />
 			</Switch>
