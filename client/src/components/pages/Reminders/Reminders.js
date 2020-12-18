@@ -9,9 +9,11 @@ import {
 	deleteReminder,
 	updateReminder,
 } from '../../../redux/actions/reminderActions';
+import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
 
 const Reminders = ({ location }) => {
+	const alerts = useSelector((state) => state.alertReducer);
 	console.log(location);
 	const { token, isAuthenticated, user } = useSelector(
 		(state) => state.authReducer
@@ -27,9 +29,10 @@ const Reminders = ({ location }) => {
 		name: '',
 		date: '',
 	});
-
+	const [updatedReminder, setUpdatedReminder] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('');
+	const [reminderId, setReminderId] = useState();
 
 	const getUserId = () => {
 		console.log(user);
@@ -49,22 +52,44 @@ const Reminders = ({ location }) => {
 
 	const handleCreate = (formData) => {
 		setShowModal(false);
-		// setIsEditing(false);
+		setIsEditing(false);
 		dispatch(createReminder(formData, getUserId(), getPetId()));
-	};
-
-	const handleUpdate = (id, formData) => {
-		// setShowModal(false);
-		// setIsEditing(false);
-		// setUpdatedPet(true);
-		// dispatch(updatePet(id, formData));
 	};
 
 	const handleAdd = () => {
 		console.log('add reminder clicked');
 		setShowModal(true);
-		// setIsEditing(false);
+		setIsEditing(false);
 		setModalTitle('add');
+	};
+
+	const handleUpdate = (id, formData) => {
+		setShowModal(false);
+		setIsEditing(false);
+		setUpdatedReminder(true);
+		dispatch(updateReminder(id, formData));
+	};
+
+	const handleEdit = (id, name, date) => {
+		setShowModal(true);
+		setModalTitle('edit');
+		setIsEditing(true);
+		setEditedReminder({
+			id: id,
+			name: name,
+			date: date,
+		});
+	};
+
+	const handleDelete = () => {
+		setShowModal(false);
+		dispatch(deleteReminder(reminderId));
+	};
+
+	const handleRemove = (id) => {
+		setReminderId(id);
+		setShowModal(true);
+		setModalTitle('delete');
 	};
 
 	const getModalBody = () => {
@@ -72,9 +97,9 @@ const Reminders = ({ location }) => {
 			<>
 				<h3>Are you sure?</h3>
 				<hr />
-				{/* <button className='btn btn-danger' onClick={handleDelete}>
+				<button className='btn btn-danger' onClick={handleDelete}>
 					Delete
-				</button> */}
+				</button>
 			</>
 		) : (
 			<RemindersForm
@@ -97,8 +122,10 @@ const Reminders = ({ location }) => {
 	};
 
 	useEffect(() => {
+		dispatch(resetAlerts());
 		dispatch(getReminders(getUserId(), getPetId()));
-	}, []);
+		setUpdatedReminder(false);
+	}, [updatedReminder, dispatch]);
 
 	return (
 		<div className='container'>
@@ -106,7 +133,7 @@ const Reminders = ({ location }) => {
 			<h3>Reminders</h3>
 			<button
 				className='btn'
-				// disabled={alerts.length > 0}
+				disabled={alerts.length > 0}
 				onClick={handleAdd}
 			>
 				<i className='fas fa-plus-circle fa-lg text-success'></i>
@@ -134,24 +161,24 @@ const Reminders = ({ location }) => {
 											</td>
 											<td>
 												<button
-													// onClick={() =>
-													//     handleEdit(
-													//         item._id,
-													//         item.name,
-													//         item.desc,
-													//         item.age,
-													//         item.dob
-													//     )
-													// }
+													onClick={() =>
+														handleEdit(
+															item._id,
+															item.name,
+															item.date
+														)
+													}
 													className='btn'
-													// disabled={alerts.length > 0}
+													disabled={alerts.length > 0}
 												>
 													<i className='fas fa-pencil-alt text-warning'></i>
 												</button>
 												<button
-													// onClick={() => handleRemove(item._id)}
+													onClick={() =>
+														handleRemove(item._id)
+													}
 													className='btn'
-													// disabled={alerts.length > 0}
+													disabled={alerts.length > 0}
 												>
 													<i className='fas fa-trash text-danger'></i>
 												</button>

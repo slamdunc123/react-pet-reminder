@@ -107,7 +107,7 @@ router.delete('/:id', async (req, res) => {
 		await reminder.remove();
 
 		res.json({
-			msg: 'reminder deleted successfully.',
+			msg: 'Reminder deleted successfully.',
 		});
 	} catch (err) {
 		console.error(err.message);

@@ -12,10 +12,6 @@ const RemindersForm = ({
 	const { name, date } = editedReminder;
 
 	const handleOnSubmit = (fields, { resetForm }) => {
-		// console.log(imageFile.length);
-		// console.log(((imageFile.length / 4) * 3) / 1064); // b64Length to KB
-		// const b64Length = ((200 * 4) / 3) * 1064; // KB to b64Length
-		// console.log(b64Length);
 		const formData = fields;
 		isEditing
 			? handleUpdate(editedReminder.id, formData)
