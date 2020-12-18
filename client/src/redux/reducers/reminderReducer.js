@@ -1,4 +1,5 @@
 import { GET_REMINDERS } from '../actions/types';
+import { CREATE_REMINDER } from '../actions/types';
 
 const initialState = {
 	reminders: [],
@@ -16,13 +17,13 @@ export default function (state = initialState, action) {
 				reminders: payload,
 				loading: false,
 			};
-		// case CREATE_PET:
-		// 	console.log('CREATE_PET called', payload);
-		// 	return {
-		// 		...state,
-		// 		pets: [...state.pets, payload],
-		// 		loading: false,
-		// 	};
+		case CREATE_REMINDER:
+			console.log('CREATE_PET called', payload);
+			return {
+				...state,
+				reminders: [...state.reminders, payload],
+				loading: false,
+			};
 		// case DELETE_PET:
 		// 	console.log('DELETE_PET called', payload);
 		// 	return {

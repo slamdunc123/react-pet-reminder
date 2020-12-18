@@ -11,15 +11,15 @@ const Reminder = require('../../models/Reminder');
 // @desc    Get all reminders
 // @access  Public
 
-// router.get('/', async (req, res) => {
-// 	try {
-// 		const reminders = await Reminder.find();
-// 		res.json(reminders);
-// 	} catch (err) {
-// 		console.error(err.message);
-// 		res.status(500).send('Server error');
-// 	}
-// });
+router.get('/', async (req, res) => {
+	try {
+		const reminders = await Reminder.find();
+		res.json(reminders);
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server error');
+	}
+});
 
 // @router  GET api/reminders - http://localhost:5000/api/reminders/1
 // @desc    Get reminders by userId
