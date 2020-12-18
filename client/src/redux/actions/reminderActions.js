@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GET_REMINDERS } from './types';
 import { CREATE_REMINDER } from './types';
+import { DELETE_REMINDER } from './types';
 import { setAlert } from './alertActions';
 
 // get reminders
@@ -43,5 +44,21 @@ export const createReminder = (formData, userId, petId) => async (dispatch) => {
 		if (errors) {
 			errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
 		}
+	}
+};
+
+// delete reminder
+export const deleteReminder = (id) => async (dispatch) => {
+	console.log('deleteReminder fired', id);
+	try {
+		const res = await axios.delete(`/api/reminders/${id}`);
+
+		dispatch({
+			type: DELETE_REMINDER,
+			payload: id,
+		});
+		dispatch(setAlert(res.data.msg, 'success'));
+	} catch (err) {
+		console.error(err.error);
 	}
 };

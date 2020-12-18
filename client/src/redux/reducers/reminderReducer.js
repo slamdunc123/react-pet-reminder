@@ -1,5 +1,6 @@
 import { GET_REMINDERS } from '../actions/types';
 import { CREATE_REMINDER } from '../actions/types';
+import { DELETE_REMINDER } from '../actions/types';
 
 const initialState = {
 	reminders: [],
@@ -24,13 +25,15 @@ export default function (state = initialState, action) {
 				reminders: [...state.reminders, payload],
 				loading: false,
 			};
-		// case DELETE_PET:
-		// 	console.log('DELETE_PET called', payload);
-		// 	return {
-		// 		...state,
-		// 		pets: state.pets.filter((pet) => pet._id !== payload),
-		// 		loading: false,
-		// 	};
+		case DELETE_REMINDER:
+			console.log('DELETE_REMINDER called', payload);
+			return {
+				...state,
+				reminders: state.reminders.filter(
+					(reminder) => reminder._id !== payload
+				),
+				loading: false,
+			};
 
 		// case UPDATE_PET:
 		// 	console.log('UPDATE_PET called', payload);
