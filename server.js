@@ -21,6 +21,7 @@ app.use(
 app.use('/api/pets', require('./routes/api/pets')); //localhost:5000/api/pets
 app.use('/api/auth', require('./routes/api/auth')); // http://localhost:5000/api/auth
 app.use('/api/users', require('./routes/api/users')); // http://localhost:5000/api/users
+app.use('/api/reminders', require('./routes/api/reminders')); //localhost:5000/api/reminders
 
 // serve static assets in production
 if (process.env.NODE_ENV === 'production') {

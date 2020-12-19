@@ -13,7 +13,7 @@ const PetRecord = ({ pet }) => {
 					<img
 						src={imageFile}
 						alt=''
-						class='rounded-circle'
+						className='rounded-circle'
 						width='100'
 						height='100'
 					/>
@@ -25,8 +25,8 @@ const PetRecord = ({ pet }) => {
 				<h5 className='card-title text-center'>{name}</h5>
 				<p className='card-text'>{desc}</p>
 				<div className='row justify-content-center'>
-					<Link className='badge badge-primary' to={`/pets/${_id}`}>
-						Profile
+					<Link className='btn' title='profile' to={`/pets/${_id}`}>
+						<i className='fas fa-book-open text-primary'></i>
 					</Link>
 				</div>
 			</div>

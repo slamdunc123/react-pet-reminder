@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PetsForm from './PetsForm';
 import Modal from '../../partials/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,6 +30,7 @@ const PetProfile = () => {
 	const { location: pathname } = history;
 	const pathUrl = pathname.pathname;
 	const pathUrlLastItem = pathUrl.substring(pathUrl.lastIndexOf('/') + 1);
+	console.log(pathUrlLastItem);
 
 	const getUserId = () => {
 		const userId = localStorage.getItem('userId');
@@ -152,6 +154,17 @@ const PetProfile = () => {
 							>
 								<i className='fas fa-trash text-danger'></i>
 							</button>
+							<Link
+								// className='badge badge-primary'
+								className='btn'
+								title='reminders'
+								to={{
+									pathname: '/reminders',
+									petId: pathUrlLastItem,
+								}}
+							>
+								<i className='fas fa-clock text-info'></i>
+							</Link>
 						</div>
 					</div>
 				</div>
