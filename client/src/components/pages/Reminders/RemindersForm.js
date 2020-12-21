@@ -10,12 +10,13 @@ const RemindersForm = ({
 	handleUpdate,
 }) => {
 	const { name, date } = editedReminder;
+	const to = '+447968903859';
 
 	const handleOnSubmit = (fields, { resetForm }) => {
 		const formData = fields;
 		isEditing
-			? handleUpdate(editedReminder.id, formData)
-			: handleCreate(formData);
+			? handleUpdate(editedReminder.id, { ...formData, to })
+			: handleCreate({ ...formData, to });
 		resetForm(initialValues);
 	};
 	return (

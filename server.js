@@ -2,7 +2,26 @@ const express = require('express');
 const conn = require('./config/db');
 const path = require('path');
 
+const config = require('config');
+const accountSid = config.get('TWILIO_ACCOUNT_SID');
+const authToken = config.get('TWILIO_AUTH_TOKEN');
+const client = require('twilio')(accountSid, authToken);
+
 const app = express();
+
+// twilio
+
+// app.get('/reminders/sendSMS', (req, res) => {
+// 	client.messages
+// 		.create({
+// 			body:
+// 				'Hi Jules. Pet reminders here. Your beautiful bear cub Bezza Boo is due a great big kiss today. Please remember or she gets sad.',
+// 			from: '+12517584500',
+// 			// to: '+447939912487',
+// 			to: '+447968903859',
+// 		})
+// 		.then((message) => res.send(message.id));
+// });
 
 // connect to database
 conn();
@@ -21,6 +40,7 @@ app.use(
 app.use('/api/pets', require('./routes/api/pets')); //localhost:5000/api/pets
 app.use('/api/auth', require('./routes/api/auth')); // http://localhost:5000/api/auth
 app.use('/api/users', require('./routes/api/users')); // http://localhost:5000/api/users
+app.use('/api/reminders', require('./routes/api/reminders')); //localhost:5000/api/reminders
 app.use('/api/reminders', require('./routes/api/reminders')); //localhost:5000/api/reminders
 
 // serve static assets in production
