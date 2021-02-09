@@ -52,7 +52,7 @@ export const createReminder = (formData, userId, petId) => async (dispatch) => {
 export const deleteReminder = (id) => async (dispatch) => {
 	console.log('deleteReminder fired', id);
 	try {
-		const res = await axios.delete(`/api/reminders/${id}`);
+		const res = await axios.delete(`/api/reminders/${id}`, '+77968903859');
 
 		dispatch({
 			type: DELETE_REMINDER,

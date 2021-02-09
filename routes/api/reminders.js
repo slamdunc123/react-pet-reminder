@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Reminder = require('../../models/Reminder');
 
+const config = require('config');
+const accountSid = config.get('TWILIO_ACCOUNT_SID');
+const authToken = config.get('TWILIO_AUTH_TOKEN');
+const phoneNumber = config.get('TWILIO_PHONE_NUMBER');
+const client = require('twilio')(accountSid, authToken);
+
 // @router  GET api/reminders - http://localhost:5000/api/reminders
 // @desc    reminders test route
 // @access  Public
@@ -20,6 +26,28 @@ router.get('/', async (req, res) => {
 		res.status(500).send('Server error');
 	}
 });
+
+// @router  POST api/reminders - http://localhost:5000/api/reminders
+// @desc    Get all reminders
+// @access  Public
+
+// router.post('/sendSMS', (req, res) => {
+// 	console.log('req.body', req.body);
+// 	const { message: msg, to } = req.body;
+// 	try {
+// 		client.messages
+// 			.create({
+// 				body: msg,
+// 				from: phoneNumber,
+// 				to: to,
+// 			})
+// 			.then((message) => console.log(message))
+// 			.then((message) => res.send(`the message is ${msg}`));
+// 	} catch (err) {
+// 		console.error(err.message);
+// 		res.status(500).send('Server error');
+// 	}
+// });
 
 // @router  GET api/reminders - http://localhost:5000/api/reminders/1
 // @desc    Get reminders by userId
@@ -60,7 +88,7 @@ router.get('/:userId', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	console.log('req.body', req.body);
-	const { name, date } = req.body;
+	const { name, date, to } = req.body;
 	try {
 		// check if reminder name already exists
 		// let reminder = await Reminder.findOne({
@@ -80,8 +108,18 @@ router.post('/', async (req, res) => {
 		});
 		console.log('newReminder', newReminder);
 		// save item to database
-		reminder = await newReminder.save();
+		const reminder = await newReminder.save();
 		res.json({ reminder: reminder, msg: 'Reminder created' });
+
+		// twilio
+		client.messages
+			.create({
+				body: `${name} reminder created.`,
+				from: phoneNumber,
+				to: to,
+			})
+			.then((message) => console.log(message))
+			.then((message) => res.send(`the message is ${msg}`));
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server error');
@@ -96,6 +134,8 @@ router.delete('/:id', async (req, res) => {
 	try {
 		// check if reminder exists
 		const reminder = await Reminder.findById(req.params.id);
+		console.log('reminder', reminder);
+		const { name } = reminder;
 
 		// if id is a valid format but doesn't exist in database
 		if (!reminder) {
@@ -109,6 +149,16 @@ router.delete('/:id', async (req, res) => {
 		res.json({
 			msg: 'Reminder deleted successfully.',
 		});
+
+		// // twilio
+		// client.messages
+		// 	.create({
+		// 		body: `${name} reminder deleted.`,
+		// 		from: phoneNumber,
+		// 		to: to,
+		// 	})
+		// 	.then((message) => console.log(message))
+		// 	.then((message) => res.send(`the message is ${msg}`));
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server error');
@@ -120,6 +170,7 @@ router.delete('/:id', async (req, res) => {
 // @access Public
 
 router.put('/:id', async (req, res) => {
+	const { name, date, to } = req.body;
 	try {
 		// check if reminder exists
 		let reminder = await Reminder.findById(req.params.id);
@@ -135,6 +186,16 @@ router.put('/:id', async (req, res) => {
 			msg: 'Reminder updated successfully.',
 			reminder: reminder,
 		});
+
+		// twilio
+		client.messages
+			.create({
+				body: `${name} reminder updated.`,
+				from: phoneNumber,
+				to: to,
+			})
+			.then((message) => console.log(message))
+			.then((message) => res.send(`the message is ${msg}`));
 	} catch (err) {
 		console.error(err.message);
 		res.status(500).send('Server error');

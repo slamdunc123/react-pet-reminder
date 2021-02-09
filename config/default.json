@@ -1,4 +1,7 @@
 {
 	"mongoURI": "mongodb+srv://admin:6QLK56OWsIXgDPs8@cluster0-mjhqv.mongodb.net/react_pet_reminder?retryWrites=true&w=majority",
-	"jwtSecret": "mysecrettoken"
+	"jwtSecret": "mysecrettoken",
+	"TWILIO_ACCOUNT_SID": "AC1a5f585b875d01bee76abdad824eca62",
+	"TWILIO_AUTH_TOKEN": "920cb427105bb0b67f967604262375db",
+	"TWILIO_PHONE_NUMBER": "+12517584500"
 }
