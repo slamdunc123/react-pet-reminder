@@ -42,5 +42,7 @@ $ heroku plugins:install heroku-repo
 $ heroku repo:reset -a fathomless-lowlands-88684
 $ git push heroku main
 
+NOTE: config/ cannot be in gitignore when pushing to heroku main but it can be when pushing to github main
+
 )
 

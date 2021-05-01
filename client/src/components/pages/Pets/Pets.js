@@ -35,6 +35,8 @@ const Pets = () => {
 	const [modalTitle, setModalTitle] = useState('');
 	const [petId, setPetId] = useState();
 	const [display, setDisplay] = useState('records');
+	const [searchTerm, setSearchTerm] = useState('');
+	const [searchedPets, setSearchedPets] = useState();
 
 	const getUserId = () => {
 		let userId;
@@ -89,6 +91,21 @@ const Pets = () => {
 		setModalTitle('delete');
 	};
 
+	const handleSearchChange = (event) => {
+		setSearchTerm(event.target.value);
+	};
+
+	const searchPets = () => {
+		const results = !searchTerm
+			? pets
+			: pets.filter((pet) =>
+					pet.name
+						.toLowerCase()
+						.includes(searchTerm.toLocaleLowerCase())
+			  );
+		setSearchedPets(results);
+	};
+
 	const getModalBody = () => {
 		return modalTitle === 'delete' ? (
 			<>
@@ -126,7 +143,8 @@ const Pets = () => {
 	};
 
 	const getPetRecordsDisplay = () => {
-		return pets.map((pet) => (
+		const searchResults = searchedPets.length > 0 ? searchedPets : pets;
+		return searchResults.map((pet) => (
 			<div key={pet._id} className='col-lg-4 col-sm-6 mb-4'>
 				<PetRecord
 					pet={pet}
@@ -140,7 +158,7 @@ const Pets = () => {
 
 	const getPetTableDisplay = () => (
 		<PetsTable
-			pets={pets}
+			pets={searchedPets.length > 0 ? searchedPets : pets}
 			handleRemove={handleRemove}
 			handleEdit={handleEdit}
 			handleAdd={handleAdd}
@@ -161,10 +179,16 @@ const Pets = () => {
 		setUpdatedPet(false);
 	}, [updatedPet, dispatch]);
 
+	useEffect(() => {
+		searchPets();
+	}, [searchTerm]);
+
 	return (
 		<div className='container'>
 			{showModal ? getModal() : false}
 			<h3>Pets</h3>
+            <div className='controls-container'>
+
 			<button
 				className='btn'
 				disabled={alerts.length > 0}
@@ -200,6 +224,17 @@ const Pets = () => {
 					Table
 				</label>
 			</div>
+			<form class='form-inline'>
+				<input
+					class='form-control mr-sm-2'
+					type='search'
+					placeholder='Search'
+					aria-label='Search'
+					value={searchTerm}
+					onChange={handleSearchChange}
+				/>
+			</form>
+            </div>
 			<div className='row mt-4'>
 				{loading ? (
 					<Spinner />
