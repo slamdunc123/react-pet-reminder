@@ -13,6 +13,7 @@ import {
 } from '../../../redux/actions/petActions';
 import { resetAlerts } from '../../../redux/actions/alertActions';
 import Modal from '../../partials/Modal/Modal';
+import './pets.scss';
 
 const Pets = () => {
 	const alerts = useSelector((state) => state.alertReducer);
@@ -36,7 +37,7 @@ const Pets = () => {
 	const [petId, setPetId] = useState();
 	const [display, setDisplay] = useState('records');
 	const [searchTerm, setSearchTerm] = useState('');
-	const [searchedPets, setSearchedPets] = useState();
+	const [searchedPets, setSearchedPets] = useState([]);
 
 	const getUserId = () => {
 		let userId;
@@ -187,54 +188,53 @@ const Pets = () => {
 		<div className='container'>
 			{showModal ? getModal() : false}
 			<h3>Pets</h3>
-            <div className='controls-container'>
-
-			<button
-				className='btn'
-				disabled={alerts.length > 0}
-				onClick={handleAdd}
-			>
-				<i className='fas fa-plus-circle fa-lg text-success'></i>
-			</button>
-			<div className='custom-control custom-radio custom-control-inline'>
-				<input
-					type='radio'
-					id='rd_1'
-					name='rd'
-					className='custom-control-input'
-					value='records'
-					onClick={handleDisplay}
-					checked={display === 'records'}
-				/>
-				<label className='custom-control-label' htmlFor='rd_1'>
-					Records
-				</label>
+			<div className='controls-container'>
+				<button
+					className='btn'
+					disabled={alerts.length > 0}
+					onClick={handleAdd}
+				>
+					<i className='fas fa-plus-circle fa-lg text-success'></i>
+				</button>
+				<div className='custom-control custom-radio custom-control-inline'>
+					<input
+						type='radio'
+						id='rd_1'
+						name='rd'
+						className='custom-control-input'
+						value='records'
+						onClick={handleDisplay}
+						checked={display === 'records'}
+					/>
+					<label className='custom-control-label' htmlFor='rd_1'>
+						Records
+					</label>
+				</div>
+				<div className='custom-control custom-radio custom-control-inline'>
+					<input
+						type='radio'
+						id='rd_2'
+						name='rd'
+						className='custom-control-input'
+						value='table'
+						onClick={handleDisplay}
+						checked={display === 'table'}
+					/>
+					<label className='custom-control-label' htmlFor='rd_2'>
+						Table
+					</label>
+				</div>
+				<form class='form-inline'>
+					<input
+						class='form-control mr-sm-2'
+						type='search'
+						placeholder='Search'
+						aria-label='Search'
+						value={searchTerm}
+						onChange={handleSearchChange}
+					/>
+				</form>
 			</div>
-			<div className='custom-control custom-radio custom-control-inline'>
-				<input
-					type='radio'
-					id='rd_2'
-					name='rd'
-					className='custom-control-input'
-					value='table'
-					onClick={handleDisplay}
-					checked={display === 'table'}
-				/>
-				<label className='custom-control-label' htmlFor='rd_2'>
-					Table
-				</label>
-			</div>
-			<form class='form-inline'>
-				<input
-					class='form-control mr-sm-2'
-					type='search'
-					placeholder='Search'
-					aria-label='Search'
-					value={searchTerm}
-					onChange={handleSearchChange}
-				/>
-			</form>
-            </div>
 			<div className='row mt-4'>
 				{loading ? (
 					<Spinner />

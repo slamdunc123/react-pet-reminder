@@ -7,6 +7,11 @@
 	color: red !important;
 }
 
+.controls-container {
+	display: flex;
+	align-items: center;
+}
+
 // .custom-control-input:checked ~ .custom-control-label::before {
 // 	color: #fff;
 // 	border-color: #7b1fa2 !important;
